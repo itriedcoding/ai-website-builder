@@ -107,7 +107,7 @@ Follow these steps to get Neura AI up and running on your local machine.
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository_url>
+git clone <(https://github.com/itriedcoding/ai-website-builder)>
 cd neura-ai-nextjs-generator
 ```
 
