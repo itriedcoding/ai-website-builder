@@ -1,5 +1,5 @@
 {
-  "name": "AI Website Generator",
-  "description": "Generate dynamic website structures and content ideas using AI with 30+ advanced features, an aesthetic white and blue theme, and engaging animations.",
+  "name": "Neura AI",
+  "description": "Generate dynamic Next.js applications with AI, including UI, backend logic, and Vercel deployment suggestions, featuring an aesthetic dark theme and 50+ advanced features.",
   "requestFramePermissions": []
 }

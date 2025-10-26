@@ -12,6 +12,6 @@ import { ScrollAnimationDirective } from './directives/scroll-animation.directiv
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  title = 'AI Website Generator';
+  title = 'Neura AI';
   currentYear = computed(() => new Date().getFullYear());
 }

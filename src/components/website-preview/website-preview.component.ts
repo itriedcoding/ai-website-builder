@@ -2,8 +2,14 @@ import { ChangeDetectionStrategy, Component, input, signal, WritableSignal, effe
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
+interface GeneratedFile {
+  filePath: string;
+  fileContent: string;
+}
+
 interface GeneratedWebsiteOutput {
-  htmlContent: string;
+  htmlContent: string; // Used for text/plain output (e.g., markdown description)
+  files?: GeneratedFile[]; // Used for application/json output (structured files)
   groundingUrls: { uri: string; title?: string }[];
   isJson: boolean;
   isStreaming?: boolean; // New property to indicate if content is actively streaming
@@ -25,77 +31,37 @@ export class WebsitePreviewComponent {
   constructor(private sanitizer: DomSanitizer) {
     effect(() => {
       const output = this.generatedOutput();
-      if (output && output.htmlContent) {
-        let contentToEmbed = output.htmlContent;
-        let isJson = output.isJson;
+      if (!output) {
+        this.sanitizedContentUrl.set(null);
+        return;
+      }
 
-        // If JSON, format it for display in a <pre> tag within the iframe
-        if (isJson) {
-          try {
-            const parsedJson = JSON.parse(contentToEmbed);
-            contentToEmbed = `<pre class="whitespace-pre-wrap font-mono text-sm bg-gray-50 p-4 rounded-md overflow-auto">${JSON.stringify(parsedJson, null, 2)}</pre>`;
-          } catch (e: any) {
-            contentToEmbed = `<div class="bg-red-100 text-red-800 p-4 rounded-md">Error parsing JSON: ${e.message || 'Unknown error'}. Raw content: <pre>${contentToEmbed}</pre></div>`;
-          }
-        }
+      let contentToEmbed = '';
+      if (output.isJson && output.files) {
+        // For JSON output (structured files), display them as code blocks
+        contentToEmbed = output.files.map(file => `
+          <div class="mb-6 p-4 bg-gray-800 rounded-lg shadow-md border border-gray-700 scroll-fade-in">
+            <h4 class="text-purple-400 font-semibold mb-2 text-sm"><span class="bg-gray-700 text-gray-300 px-2 py-1 rounded-md mr-2">File:</span> ${file.filePath}</h4>
+            <pre class="whitespace-pre-wrap break-words font-mono text-xs text-teal-300 bg-gray-900 p-4 rounded-md overflow-auto border border-gray-700 leading-normal">${this.escapeHtml(file.fileContent)}</pre>
+          </div>
+        `).join('');
+      } else if (output.htmlContent) {
+        // For text/plain output (markdown description), display as preformatted text
+        contentToEmbed = `<pre class="whitespace-pre-wrap font-mono text-sm bg-gray-800 p-4 rounded-md overflow-auto border border-gray-700 text-gray-200 scroll-fade-in">${this.escapeHtml(output.htmlContent)}</pre>`;
+      }
 
-        const fullHtml = `
+      const fullHtml = `
           <!doctype html>
           <html>
           <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>AI Generated Site</title>
+            <title>Neura AI Output</title>
             <script src="https://cdn.tailwindcss.com"></script>
             <style>
-              body { font-family: sans-serif; margin: 0; padding: 1rem; background-color: #f8fafc; color: #334155; }
-              section { margin-bottom: 2rem; padding: 1.5rem; border-radius: 0.5rem; background-color: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-              h1, h2, h3 { color: #1e3a8a; }
-
-              /* Dark Mode - Basic example for AI consideration */
-              @media (prefers-color-scheme: dark) {
-                body { background-color: #1a202c; color: #e2e8f0; }
-                section { background-color: #2d3748; box-shadow: none; }
-                h1, h2, h3 { color: #90cdf4; }
-              }
-
-              /* Hover effects for interactive elements */
-              .btn, button {
-                transition: all 0.3s ease-in-out;
-                cursor: pointer;
-              }
-              .btn:hover, button:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Tailwind shadow-lg */
-                background-color: #2563eb; /* Tailwind blue-600 */
-                color: white;
-              }
-
-              a {
-                transition: color 0.3s ease-in-out;
-              }
-              a:hover {
-                color: #2563eb; /* Tailwind blue-600 */
-                text-decoration: underline;
-              }
-
-              .card-hover-effect {
-                transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-              }
-              .card-hover-effect:hover {
-                transform: scale(1.02);
-                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* Tailwind shadow-xl */
-              }
-
-              .image-hover-effect {
-                transition: transform 0.3s ease-in-out;
-                overflow: hidden; /* important for scale to not break layout */
-              }
-              .image-hover-effect:hover {
-                transform: scale(1.05);
-              }
-
-              /* Scroll animation classes */
+              body { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; margin: 0; padding: 1rem; background-color: #111827; color: #E5E7EB; } /* gray-900, gray-200 */
+              h1, h2, h3, h4, h5, h6 { color: #A78BFA; } /* purple-400 */
+              pre { color: #5EEAD4; } /* teal-300 */
               .scroll-fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
               .scroll-fade-in.animated { opacity: 1; transform: translateY(0); }
             </style>
@@ -103,7 +69,6 @@ export class WebsitePreviewComponent {
           <body>
             ${contentToEmbed}
             <script>
-              // Basic IntersectionObserver for scroll animations inside the iframe
               document.addEventListener('DOMContentLoaded', () => {
                 const elements = document.querySelectorAll('.scroll-fade-in');
                 const observer = new IntersectionObserver(entries => {
@@ -114,7 +79,6 @@ export class WebsitePreviewComponent {
                     }
                   });
                 }, { threshold: 0.1 });
-
                 elements.forEach(el => observer.observe(el));
               });
             </script>
@@ -124,36 +88,47 @@ export class WebsitePreviewComponent {
         const blob = new Blob([fullHtml], { type: 'text/html' });
         const url = URL.createObjectURL(blob);
         this.sanitizedContentUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(url));
-      } else {
-        this.sanitizedContentUrl.set(null);
-      }
     });
   }
 
-  downloadHtml() {
-    const output = this.generatedOutput();
-    if (output && output.htmlContent) {
-      const filename = output.isJson ? 'generated_content.json' : 'generated_website.html';
-      const type = output.isJson ? 'application/json' : 'text/html';
-      let content = output.htmlContent;
-      if (output.isJson) {
-        try {
-          content = JSON.stringify(JSON.parse(output.htmlContent), null, 2); // Prettify JSON
-        } catch (e) {
-          console.error("Error pretty-printing JSON for download:", e);
-          // Fallback to raw content if parsing fails
-        }
-      }
+  // Helper to escape HTML characters for displaying code inside <pre>
+  private escapeHtml(unsafe: string): string {
+    return unsafe
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
 
-      const blob = new Blob([content], { type: type });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+  downloadContent() {
+    const output = this.generatedOutput();
+    if (!output) return;
+
+    let filename: string;
+    let type: string;
+    let content: string;
+
+    if (output.isJson && output.files) {
+      filename = 'nextjs_project_files.json';
+      type = 'application/json';
+      content = JSON.stringify(output.files, null, 2); // Prettify JSON
+    } else if (output.htmlContent) {
+      filename = 'nextjs_project_description.md'; // Assuming plain text output will be markdown
+      type = 'text/markdown';
+      content = output.htmlContent;
+    } else {
+      return; // No content to download
     }
+
+    const blob = new Blob([content], { type: type });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
 }

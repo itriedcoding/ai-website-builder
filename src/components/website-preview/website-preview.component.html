@@ -1,32 +1,28 @@
 <div class="w-full h-full flex flex-col">
-  <div class="w-full flex justify-end gap-2 p-2 bg-blue-50 border-b border-blue-100 rounded-t-xl">
-    @if (generatedOutput() && !generatedOutput()?.isJson && generatedOutput()?.htmlContent) {
-      <button (click)="downloadHtml()" class="px-4 py-2 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700 transition duration-200 ease-in-out shadow-sm">
-        Download HTML
-      </button>
-    } @else if (generatedOutput() && generatedOutput()?.isJson && generatedOutput()?.htmlContent) {
-      <button (click)="downloadHtml()" class="px-4 py-2 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700 transition duration-200 ease-in-out shadow-sm">
-        Download JSON
+  <div class="w-full flex justify-end gap-2 p-2 bg-gray-900 border-b border-gray-700 rounded-t-xl">
+    @if (generatedOutput() && (generatedOutput()?.htmlContent || generatedOutput()?.files?.length)) {
+      <button (click)="downloadContent()" class="px-4 py-2 bg-purple-600 text-white rounded-md text-sm hover:bg-purple-700 transition duration-200 ease-in-out shadow-sm">
+        Download {{ generatedOutput()?.isJson ? 'Project JSON' : 'Markdown Description' }}
       </button>
     }
   </div>
-  <div class="flex-grow w-full h-[calc(100%-48px)] bg-gray-100 rounded-b-xl overflow-hidden border border-blue-100">
+  <div class="flex-grow w-full h-[calc(100%-48px)] bg-gray-800 rounded-b-xl overflow-hidden border border-gray-700">
     @if (sanitizedContentUrl()) {
       <iframe [src]="sanitizedContentUrl()!" class="w-full h-full border-none"></iframe>
     } @else {
-      <div class="flex items-center justify-center h-full text-gray-500 text-lg">
-        <p>Waiting for website content...</p>
+      <div class="flex items-center justify-center h-full text-gray-400 text-lg">
+        <p>Waiting for Next.js project output...</p>
       </div>
     }
   </div>
 
   @if (generatedOutput()?.groundingUrls?.length) {
-    <div class="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200 shadow-sm text-sm" appScrollAnimation>
-      <h3 class="font-semibold text-blue-700 mb-2">Sources (Google Search Grounding):</h3>
-      <ul class="list-disc list-inside space-y-1 text-gray-700">
+    <div class="mt-4 p-4 bg-gray-800 rounded-lg border border-gray-700 shadow-sm text-sm" appScrollAnimation>
+      <h3 class="font-semibold text-purple-400 mb-2">Sources (Google Search Grounding):</h3>
+      <ul class="list-disc list-inside space-y-1 text-gray-300">
         @for (url of generatedOutput()!.groundingUrls; track url.uri) {
           <li>
-            <a [href]="url.uri" target="_blank" class="text-blue-600 hover:underline hover:text-blue-800 transition duration-200 ease-in-out">
+            <a [href]="url.uri" target="_blank" class="text-teal-400 hover:underline hover:text-purple-400 transition duration-200 ease-in-out">
               {{ url.title || url.uri }}
             </a>
           </li>

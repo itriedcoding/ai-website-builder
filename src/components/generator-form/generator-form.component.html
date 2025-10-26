@@ -1,44 +1,44 @@
-<form [formGroup]="generatorForm" (ngSubmit)="onSubmit()" class="bg-white p-8 rounded-xl shadow-lg border border-blue-100 space-y-8">
+<form [formGroup]="generatorForm" (ngSubmit)="onSubmit()" class="bg-gray-900 p-8 rounded-xl shadow-lg border border-gray-700 space-y-8">
   <div class="text-center mb-6">
-    <h2 class="text-3xl font-bold text-blue-700">Configure Your Website</h2>
-    <p class="text-gray-600 mt-2">Choose from 50+ features to guide the AI in generating your perfect site.</p>
+    <h2 class="text-3xl font-bold text-teal-400">Configure Your Next.js App</h2>
+    <p class="text-gray-400 mt-2">Choose from 50+ features to guide Neura AI in generating your perfect project.</p>
   </div>
 
   <!-- Basic Information Section -->
-  <section class="space-y-6 p-6 rounded-lg bg-blue-50/20" appScrollAnimation>
-    <h3 class="text-2xl font-semibold text-blue-600 border-b-2 border-blue-200 pb-2 mb-4">1. Basic Information</h3>
+  <section class="space-y-6 p-6 rounded-lg bg-gray-800/50" appScrollAnimation>
+    <h3 class="text-2xl font-semibold text-purple-400 border-b-2 border-gray-700 pb-2 mb-4">1. Basic Project Information</h3>
     <div>
-      <label for="websiteIdea" class="block text-sm font-medium text-gray-700 mb-1">Website Idea / Description <span class="text-red-500">*</span></label>
+      <label for="websiteIdea" class="block text-sm font-medium text-gray-300 mb-1">Project Idea / Description <span class="text-red-500">*</span></label>
       <textarea id="websiteIdea" formControlName="websiteIdea" rows="3"
-        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm"></textarea>
+        class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200"></textarea>
       @if (generatorForm.get('websiteIdea')?.invalid && generatorForm.get('websiteIdea')?.touched) {
-        <p class="text-red-500 text-xs mt-1">Website Idea is required.</p>
+        <p class="text-red-500 text-xs mt-1">Project Idea is required.</p>
       }
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div>
-        <label for="websiteType" class="block text-sm font-medium text-gray-700 mb-1">Website Type <span class="text-red-500">*</span></label>
+        <label for="websiteType" class="block text-sm font-medium text-gray-300 mb-1">Project Type <span class="text-red-500">*</span></label>
         <select id="websiteType" formControlName="websiteType"
-          class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm">
+          class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200">
           @for (type of websiteTypes(); track type) {
             <option [value]="type">{{ type }}</option>
           }
         </select>
       </div>
       <div>
-        <label for="industry" class="block text-sm font-medium text-gray-700 mb-1">Industry / Niche <span class="text-red-500">*</span></label>
+        <label for="industry" class="block text-sm font-medium text-gray-300 mb-1">Industry / Niche <span class="text-red-500">*</span></label>
         <input type="text" id="industry" formControlName="industry"
-          class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm">
+          class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200">
         @if (generatorForm.get('industry')?.invalid && generatorForm.get('industry')?.touched) {
           <p class="text-red-500 text-xs mt-1">Industry is required.</p>
         }
       </div>
     </div>
     <div>
-      <label for="targetAudience" class="block text-sm font-medium text-gray-700 mb-1">Target Audience <span class="text-red-500">*</span></label>
+      <label for="targetAudience" class="block text-sm font-medium text-gray-300 mb-1">Target Audience <span class="text-red-500">*</span></label>
       <input type="text" id="targetAudience" formControlName="targetAudience"
-        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm">
+        class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200">
       @if (generatorForm.get('targetAudience')?.invalid && generatorForm.get('targetAudience')?.touched) {
         <p class="text-red-500 text-xs mt-1">Target Audience is required.</p>
       }
@@ -46,50 +46,50 @@
   </section>
 
   <!-- Design & Style Section -->
-  <section class="space-y-6 p-6 rounded-lg bg-blue-50/20" appScrollAnimation>
-    <h3 class="text-2xl font-semibold text-blue-600 border-b-2 border-blue-200 pb-2 mb-4">2. Design & Style</h3>
+  <section class="space-y-6 p-6 rounded-lg bg-gray-800/50" appScrollAnimation>
+    <h3 class="text-2xl font-semibold text-purple-400 border-b-2 border-gray-700 pb-2 mb-4">2. Design & Styling</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div>
-        <label for="primaryColor" class="block text-sm font-medium text-gray-700 mb-1">Primary Color <span class="text-red-500">*</span></label>
+        <label for="primaryColor" class="block text-sm font-medium text-gray-300 mb-1">Primary Color <span class="text-red-500">*</span></label>
         <input type="color" id="primaryColor" formControlName="primaryColor"
-          class="w-full h-12 p-1 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm cursor-pointer">
+          class="w-full h-12 p-1 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm cursor-pointer bg-gray-700">
       </div>
       <div>
-        <label for="accentColor" class="block text-sm font-medium text-gray-700 mb-1">Accent Color <span class="text-red-500">*</span></label>
+        <label for="accentColor" class="block text-sm font-medium text-gray-300 mb-1">Accent Color <span class="text-red-500">*</span></label>
         <input type="color" id="accentColor" formControlName="accentColor"
-          class="w-full h-12 p-1 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm cursor-pointer">
+          class="w-full h-12 p-1 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm cursor-pointer bg-gray-700">
       </div>
       <div>
-        <label for="fontStyle" class="block text-sm font-medium text-gray-700 mb-1">Font Style <span class="text-red-500">*</span></label>
+        <label for="fontStyle" class="block text-sm font-medium text-gray-300 mb-1">Font Style <span class="text-red-500">*</span></label>
         <select id="fontStyle" formControlName="fontStyle"
-          class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm">
+          class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200">
           @for (style of fontStyles(); track style) {
             <option [value]="style">{{ style }}</option>
           }
         </select>
       </div>
       <div>
-        <label for="brandTone" class="block text-sm font-medium text-gray-700 mb-1">Brand Tone <span class="text-red-500">*</span></label>
+        <label for="brandTone" class="block text-sm font-medium text-gray-300 mb-1">Brand Tone <span class="text-red-500">*</span></label>
         <select id="brandTone" formControlName="brandTone"
-          class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm">
+          class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200">
           @for (tone of brandTones(); track tone) {
             <option [value]="tone">{{ tone }}</option>
           }
         </select>
       </div>
       <div>
-        <label for="layoutPreference" class="block text-sm font-medium text-gray-700 mb-1">Layout Preference <span class="text-red-500">*</span></label>
+        <label for="layoutPreference" class="block text-sm font-medium text-gray-300 mb-1">Layout Preference <span class="text-red-500">*</span></label>
         <select id="layoutPreference" formControlName="layoutPreference"
-          class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm">
+          class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200">
           @for (layout of layoutPreferences(); track layout) {
             <option [value]="layout">{{ layout }}</option>
           }
         </select>
       </div>
       <div>
-        <label for="iconStyle" class="block text-sm font-medium text-gray-700 mb-1">Icon Style <span class="text-red-500">*</span></label>
+        <label for="iconStyle" class="block text-sm font-medium text-gray-300 mb-1">Icon Style <span class="text-red-500">*</span></label>
         <select id="iconStyle" formControlName="iconStyle"
-          class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm">
+          class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200">
           @for (style of iconStyles(); track style) {
             <option [value]="style">{{ style }}</option>
           }
@@ -99,17 +99,17 @@
   </section>
 
   <!-- Content & Structure Section -->
-  <section class="space-y-6 p-6 rounded-lg bg-blue-50/20" appScrollAnimation>
-    <h3 class="text-2xl font-semibold text-blue-600 border-b-2 border-blue-200 pb-2 mb-4">3. Content & Structure</h3>
+  <section class="space-y-6 p-6 rounded-lg bg-gray-800/50" appScrollAnimation>
+    <h3 class="text-2xl font-semibold text-purple-400 border-b-2 border-gray-700 pb-2 mb-4">3. Project Structure & Content</h3>
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-1">Key Pages <span class="text-red-500">*</span></label>
+      <label class="block text-sm font-medium text-gray-300 mb-1">Key Pages <span class="text-red-500">*</span></label>
       <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
         @for (page of keyPagesOptions(); track page) {
-          <label class="inline-flex items-center p-2 bg-blue-50 rounded-md cursor-pointer hover:bg-blue-100 transition duration-200 ease-in-out shadow-sm">
+          <label class="inline-flex items-center p-2 bg-gray-700 rounded-md cursor-pointer hover:bg-gray-600 transition duration-200 ease-in-out shadow-sm">
             <input type="checkbox" [value]="page" (change)="onCheckboxChange($event, 'keyPages', page)"
                    [checked]="generatorForm.get('keyPages')?.value?.includes(page)"
-                   class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
-            <span class="ml-2 text-gray-700 text-sm">{{ page }}</span>
+                   class="form-checkbox h-5 w-5 text-teal-500 rounded focus:ring-purple-500">
+            <span class="ml-2 text-gray-200 text-sm">{{ page }}</span>
           </label>
         }
       </div>
@@ -117,45 +117,45 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div>
-        <label for="numberOfSections" class="block text-sm font-medium text-gray-700 mb-1">Number of Homepage Sections <span class="text-red-500">*</span></label>
+        <label for="numberOfSections" class="block text-sm font-medium text-gray-300 mb-1">Number of Homepage Sections <span class="text-red-500">*</span></label>
         <input type="number" id="numberOfSections" formControlName="numberOfSections" min="3" max="10"
-          class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm">
+          class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200">
         @if (generatorForm.get('numberOfSections')?.invalid && generatorForm.get('numberOfSections')?.touched) {
           <p class="text-red-500 text-xs mt-1">Between 3 and 10 sections.</p>
         }
       </div>
       <div class="flex items-center pt-6">
         <input type="checkbox" id="generateSampleContent" formControlName="generateSampleContent"
-          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
-        <label for="generateSampleContent" class="ml-2 text-sm font-medium text-gray-700">Generate Sample Content</label>
+          class="form-checkbox h-5 w-5 text-teal-500 rounded focus:ring-purple-500">
+        <label for="generateSampleContent" class="ml-2 text-sm font-medium text-gray-300">Generate Sample Content</label>
       </div>
     </div>
 
     <div>
       <div class="flex items-center mb-2">
         <input type="checkbox" id="generateContentStrategy" formControlName="generateContentStrategy"
-          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
-        <label for="generateContentStrategy" class="ml-2 text-sm font-medium text-gray-700">Generate Content Strategy</label>
+          class="form-checkbox h-5 w-5 text-teal-500 rounded focus:ring-purple-500">
+        <label for="generateContentStrategy" class="ml-2 text-sm font-medium text-gray-300">Generate Content Strategy</label>
       </div>
     </div>
 
     <div>
       <div class="flex items-center mb-2">
         <input type="checkbox" id="includeStructuredData" formControlName="includeStructuredData"
-          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
-        <label for="includeStructuredData" class="ml-2 text-sm font-medium text-gray-700">Include Structured Data (Schema.org)</label>
+          class="form-checkbox h-5 w-5 text-teal-500 rounded focus:ring-purple-500">
+        <label for="includeStructuredData" class="ml-2 text-sm font-medium text-gray-300">Include Structured Data (Schema.org)</label>
       </div>
     </div>
 
     <div>
       <div class="flex items-center mb-2">
         <input type="checkbox" id="includeSEOKeywords" formControlName="includeSEOKeywords"
-          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
-        <label for="includeSEOKeywords" class="ml-2 text-sm font-medium text-gray-700">Include SEO Keywords</label>
+          class="form-checkbox h-5 w-5 text-teal-500 rounded focus:ring-purple-500">
+        <label for="includeSEOKeywords" class="ml-2 text-sm font-medium text-gray-300">Include SEO Keywords (for Next.js Head)</label>
       </div>
       @if (showSEOKeywords()) {
-        <input type="text" id="seoKeywords" formControlName="seoKeywords" placeholder="e.g., web development, angular, signals"
-          class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm">
+        <input type="text" id="seoKeywords" formControlName="seoKeywords" placeholder="e.g., next.js, saas, typescript, vercel"
+          class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200">
         @if (generatorForm.get('seoKeywords')?.invalid && generatorForm.get('seoKeywords')?.touched) {
           <p class="text-red-500 text-xs mt-1">SEO Keywords are too long.</p>
         }
@@ -165,23 +165,23 @@
     <div>
       <div class="flex items-center mb-2">
         <input type="checkbox" id="includeCTA" formControlName="includeCTA"
-          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
-        <label for="includeCTA" class="ml-2 text-sm font-medium text-gray-700">Include Call-to-Action (CTA)</label>
+          class="form-checkbox h-5 w-5 text-teal-500 rounded focus:ring-purple-500">
+        <label for="includeCTA" class="ml-2 text-sm font-medium text-gray-300">Include Call-to-Action (CTA) Component</label>
       </div>
       @if (showCTADetails()) {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
           <div>
-            <label for="ctaText" class="block text-sm font-medium text-gray-700 mb-1">CTA Text</label>
+            <label for="ctaText" class="block text-sm font-medium text-gray-300 mb-1">CTA Text</label>
             <input type="text" id="ctaText" formControlName="ctaText" placeholder="e.g., Learn More"
-              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm">
+              class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200">
             @if (generatorForm.get('ctaText')?.invalid && generatorForm.get('ctaText')?.touched) {
               <p class="text-red-500 text-xs mt-1">CTA Text is too long.</p>
             }
           </div>
           <div>
-            <label for="ctaLink" class="block text-sm font-medium text-gray-700 mb-1">CTA Link</label>
+            <label for="ctaLink" class="block text-sm font-medium text-gray-300 mb-1">CTA Link</label>
             <input type="text" id="ctaLink" formControlName="ctaLink" placeholder="e.g., /about"
-              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm">
+              class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200">
             @if (generatorForm.get('ctaLink')?.invalid && generatorForm.get('ctaLink')?.touched) {
               <p class="text-red-500 text-xs mt-1">CTA Link is too long.</p>
             }
@@ -193,14 +193,14 @@
     <div>
       <div class="flex items-center mb-2">
         <input type="checkbox" id="includeTestimonials" formControlName="includeTestimonials"
-          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
-        <label for="includeTestimonials" class="ml-2 text-sm font-medium text-gray-700">Include Testimonials Section</label>
+          class="form-checkbox h-5 w-5 text-teal-500 rounded focus:ring-purple-500">
+        <label for="includeTestimonials" class="ml-2 text-sm font-medium text-gray-300">Include Testimonials Component</label>
       </div>
       @if (showTestimonialDetails()) {
         <div class="mt-2">
-          <label for="numberOfTestimonials" class="block text-sm font-medium text-gray-700 mb-1">Number of Testimonials</label>
+          <label for="numberOfTestimonials" class="block text-sm font-medium text-gray-300 mb-1">Number of Testimonials</label>
           <input type="number" id="numberOfTestimonials" formControlName="numberOfTestimonials" min="1" max="5"
-            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm">
+            class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200">
           @if (generatorForm.get('numberOfTestimonials')?.invalid && generatorForm.get('numberOfTestimonials')?.touched) {
             <p class="text-red-500 text-xs mt-1">Between 1 and 5 testimonials.</p>
           }
@@ -211,14 +211,14 @@
     <div>
       <div class="flex items-center mb-2">
         <input type="checkbox" id="includeBlogPosts" formControlName="includeBlogPosts"
-          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
-        <label for="includeBlogPosts" class="ml-2 text-sm font-medium text-gray-700">Include Blog Posts Section</label>
+          class="form-checkbox h-5 w-5 text-teal-500 rounded focus:ring-purple-500">
+        <label for="includeBlogPosts" class="ml-2 text-sm font-medium text-gray-300">Include Blog Posts Section</label>
       </div>
       @if (showBlogDetails()) {
         <div class="mt-2">
-          <label for="numberOfBlogPosts" class="block text-sm font-medium text-gray-700 mb-1">Number of Blog Posts</label>
+          <label for="numberOfBlogPosts" class="block text-sm font-medium text-gray-300 mb-1">Number of Blog Posts</label>
           <input type="number" id="numberOfBlogPosts" formControlName="numberOfBlogPosts" min="1" max="5"
-            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm">
+            class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200">
           @if (generatorForm.get('numberOfBlogPosts')?.invalid && generatorForm.get('numberOfBlogPosts')?.touched) {
             <p class="text-red-500 text-xs mt-1">Between 1 and 5 blog posts.</p>
           }
@@ -227,9 +227,9 @@
     </div>
 
     <div>
-      <label for="footerContent" class="block text-sm font-medium text-gray-700 mb-1">Footer Content Options</label>
+      <label for="footerContent" class="block text-sm font-medium text-gray-300 mb-1">Footer Content Options</label>
       <textarea id="footerContent" formControlName="footerContent" rows="2"
-        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm"></textarea>
+        class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200"></textarea>
       @if (generatorForm.get('footerContent')?.invalid && generatorForm.get('footerContent')?.touched) {
         <p class="text-red-500 text-xs mt-1">Footer content is too long.</p>
       }
@@ -237,12 +237,12 @@
   </section>
 
   <!-- Advanced UI/UX & Content Section -->
-  <section class="space-y-6 p-6 rounded-lg bg-blue-50/20" appScrollAnimation>
-    <h3 class="text-2xl font-semibold text-blue-600 border-b-2 border-blue-200 pb-2 mb-4">4. Advanced UI/UX & Content</h3>
+  <section class="space-y-6 p-6 rounded-lg bg-gray-800/50" appScrollAnimation>
+    <h3 class="text-2xl font-semibold text-purple-400 border-b-2 border-gray-700 pb-2 mb-4">4. Advanced UI/UX & Media</h3>
     <div>
-      <label for="animationIntensity" class="block text-sm font-medium text-gray-700 mb-1">Animation Intensity <span class="text-red-500">*</span></label>
+      <label for="animationIntensity" class="block text-sm font-medium text-gray-300 mb-1">Animation Intensity <span class="text-red-500">*</span></label>
       <select id="animationIntensity" formControlName="animationIntensity"
-        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm">
+        class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200">
         @for (intensity of animationIntensities(); track intensity) {
           <option [value]="intensity">{{ intensity }}</option>
         }
@@ -250,40 +250,40 @@
     </div>
 
     <div>
-      <label for="imageGenerationPrompt" class="block text-sm font-medium text-gray-700 mb-1">Image Generation Prompt</label>
+      <label for="imageGenerationPrompt" class="block text-sm font-medium text-gray-300 mb-1">Image Generation Prompt</label>
       <textarea id="imageGenerationPrompt" formControlName="imageGenerationPrompt" rows="2" placeholder="e.g., A minimalist office space with natural light."
-        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm"></textarea>
+        class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200"></textarea>
       @if (generatorForm.get('imageGenerationPrompt')?.invalid && generatorForm.get('imageGenerationPrompt')?.touched) {
         <p class="text-red-500 text-xs mt-1">Image prompt is too long.</p>
       }
     </div>
 
     <div>
-      <label for="videoGenerationPrompt" class="block text-sm font-medium text-gray-700 mb-1">Video Generation Prompt</label>
+      <label for="videoGenerationPrompt" class="block text-sm font-medium text-gray-300 mb-1">Video Generation Prompt</label>
       <textarea id="videoGenerationPrompt" formControlName="videoGenerationPrompt" rows="2" placeholder="e.g., A drone shot of a bustling city at sunset."
-        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm"></textarea>
+        class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200"></textarea>
       @if (generatorForm.get('videoGenerationPrompt')?.invalid && generatorForm.get('videoGenerationPrompt')?.touched) {
         <p class="text-red-500 text-xs mt-1">Video prompt is too long.</p>
       }
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <label for="includePreloader" class="flex items-center p-3 bg-blue-50 rounded-md cursor-pointer hover:bg-blue-100 transition duration-200 ease-in-out shadow-sm">
+      <label for="includePreloader" class="flex items-center p-3 bg-gray-700 rounded-md cursor-pointer hover:bg-gray-600 transition duration-200 ease-in-out shadow-sm">
         <input type="checkbox" id="includePreloader" formControlName="includePreloader"
-          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
-        <span class="ml-2 text-sm font-medium text-gray-700">Include Preloader</span>
+          class="form-checkbox h-5 w-5 text-teal-500 rounded focus:ring-purple-500">
+        <span class="ml-2 text-sm font-medium text-gray-300">Include Preloader Component</span>
       </label>
-      <label for="includeCookieConsent" class="flex items-center p-3 bg-blue-50 rounded-md cursor-pointer hover:bg-blue-100 transition duration-200 ease-in-out shadow-sm">
+      <label for="includeCookieConsent" class="flex items-center p-3 bg-gray-700 rounded-md cursor-pointer hover:bg-gray-600 transition duration-200 ease-in-out shadow-sm">
         <input type="checkbox" id="includeCookieConsent" formControlName="includeCookieConsent"
-          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
-        <span class="ml-2 text-sm font-medium text-gray-700">Include Cookie Consent</span>
+          class="form-checkbox h-5 w-5 text-teal-500 rounded focus:ring-purple-500">
+        <span class="ml-2 text-sm font-medium text-gray-300">Include Cookie Consent Component</span>
       </label>
     </div>
 
     <div>
-      <label for="languagePreference" class="block text-sm font-medium text-gray-700 mb-1">Language Preference <span class="text-red-500">*</span></label>
+      <label for="languagePreference" class="block text-sm font-medium text-gray-300 mb-1">Language Preference <span class="text-red-500">*</span></label>
       <select id="languagePreference" formControlName="languagePreference"
-        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm">
+        class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200">
         @for (lang of languagePreferences(); track lang) {
           <option [value]="lang">{{ lang }}</option>
         }
@@ -292,165 +292,174 @@
   </section>
 
   <!-- AI Configuration Section -->
-  <section class="space-y-6 p-6 rounded-lg bg-blue-50/20" appScrollAnimation>
-    <h3 class="text-2xl font-semibold text-blue-600 border-b-2 border-blue-200 pb-2 mb-4">5. AI Configuration</h3>
+  <section class="space-y-6 p-6 rounded-lg bg-gray-800/50" appScrollAnimation>
+    <h3 class="text-2xl font-semibold text-purple-400 border-b-2 border-gray-700 pb-2 mb-4">5. AI Model Configuration</h3>
 
     <div>
-      <label for="temperature" class="block text-sm font-medium text-gray-700 mb-1">Temperature (Creativity) <span class="text-blue-600 font-bold">({{ generatorForm.get('temperature')?.value }})</span> <span class="text-red-500">*</span></label>
+      <label for="temperature" class="block text-sm font-medium text-gray-300 mb-1">Temperature (Creativity) <span class="text-teal-400 font-bold">({{ generatorForm.get('temperature')?.value }})</span> <span class="text-red-500">*</span></label>
       <input type="range" id="temperature" formControlName="temperature" min="0.0" max="1.0" step="0.05"
-        class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out hover:bg-blue-300">
+        class="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-300 ease-in-out hover:bg-gray-500">
       @if (generatorForm.get('temperature')?.invalid && generatorForm.get('temperature')?.touched) {
         <p class="text-red-500 text-xs mt-1">Temperature must be between 0.0 and 1.0.</p>
       }
     </div>
 
     <div>
-      <label for="topP" class="block text-sm font-medium text-gray-700 mb-1">Top P (Diversity) <span class="text-blue-600 font-bold">({{ generatorForm.get('topP')?.value }})</span> <span class="text-red-500">*</span></label>
+      <label for="topP" class="block text-sm font-medium text-gray-300 mb-1">Top P (Diversity) <span class="text-teal-400 font-bold">({{ generatorForm.get('topP')?.value }})</span> <span class="text-red-500">*</span></label>
       <input type="range" id="topP" formControlName="topP" min="0.0" max="1.0" step="0.05"
-        class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out hover:bg-blue-300">
+        class="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-300 ease-in-out hover:bg-gray-500">
       @if (generatorForm.get('topP')?.invalid && generatorForm.get('topP')?.touched) {
         <p class="text-red-500 text-xs mt-1">Top P must be between 0.0 and 1.0.</p>
       }
     </div>
 
     <div>
-      <label for="topK" class="block text-sm font-medium text-gray-700 mb-1">Top K (Focus) <span class="text-blue-600 font-bold">({{ generatorForm.get('topK')?.value }})</span> <span class="text-red-500">*</span></label>
+      <label for="topK" class="block text-sm font-medium text-gray-300 mb-1">Top K (Focus) <span class="text-teal-400 font-bold">({{ generatorForm.get('topK')?.value }})</span> <span class="text-red-500">*</span></label>
       <input type="range" id="topK" formControlName="topK" min="1" max="100" step="1"
-        class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out hover:bg-blue-300">
+        class="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-300 ease-in-out hover:bg-gray-500">
       @if (generatorForm.get('topK')?.invalid && generatorForm.get('topK')?.touched) {
         <p class="text-red-500 text-xs mt-1">Top K must be between 1 and 100.</p>
       }
     </div>
 
     <div>
-      <label for="maxOutputTokens" class="block text-sm font-medium text-gray-700 mb-1">Max Output Tokens <span class="text-red-500">*</span></label>
+      <label for="maxOutputTokens" class="block text-sm font-medium text-gray-300 mb-1">Max Output Tokens <span class="text-red-500">*</span></label>
       <input type="number" id="maxOutputTokens" formControlName="maxOutputTokens" min="1" max="4096"
-        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm">
+        class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200">
       @if (generatorForm.get('maxOutputTokens')?.invalid && generatorForm.get('maxOutputTokens')?.touched) {
         <p class="text-red-500 text-xs mt-1">Between 1 and 4096 tokens.</p>
       }
     </div>
 
     <div>
-      <label for="thinkingBudget" class="block text-sm font-medium text-gray-700 mb-1">Thinking Budget (tokens for processing, Gemini-Flash only) <span class="text-red-500">*</span></label>
+      <label for="thinkingBudget" class="block text-sm font-medium text-gray-300 mb-1">Thinking Budget (tokens for processing, Gemini-Flash only) <span class="text-red-500">*</span></label>
       <input type="number" id="thinkingBudget" formControlName="thinkingBudget" min="0" max="1000"
-        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm">
+        class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200">
       @if (generatorForm.get('thinkingBudget')?.invalid && generatorForm.get('thinkingBudget')?.touched) {
         <p class="text-red-500 text-xs mt-1">Between 0 and 1000 tokens.</p>
       }
     </div>
 
     <div>
-      <label for="systemInstruction" class="block text-sm font-medium text-gray-700 mb-1">System Instruction (e.g., "You are a friendly assistant")</label>
+      <label for="systemInstruction" class="block text-sm font-medium text-gray-300 mb-1">System Instruction (e.g., "You are an expert Next.js developer")</label>
       <textarea id="systemInstruction" formControlName="systemInstruction" rows="2"
-        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm"></textarea>
+        class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200"></textarea>
       @if (generatorForm.get('systemInstruction')?.invalid && generatorForm.get('systemInstruction')?.touched) {
         <p class="text-red-500 text-xs mt-1">System instruction is too long.</p>
       }
     </div>
 
-    <label for="enableGoogleSearch" class="flex items-center p-3 bg-blue-50 rounded-md cursor-pointer hover:bg-blue-100 transition duration-200 ease-in-out shadow-sm">
+    <label for="enableGoogleSearch" class="flex items-center p-3 bg-gray-700 rounded-md cursor-pointer hover:bg-gray-600 transition duration-200 ease-in-out shadow-sm">
       <input type="checkbox" id="enableGoogleSearch" formControlName="enableGoogleSearch"
-        class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
-      <span class="ml-2 text-sm font-medium text-gray-700">Enable Google Search Grounding</span>
+        class="form-checkbox h-5 w-5 text-teal-500 rounded focus:ring-purple-500">
+      <span class="ml-2 text-sm font-medium text-gray-300">Enable Google Search Grounding</span>
     </label>
 
     <div>
-      <label for="responseOutputMimeType" class="block text-sm font-medium text-gray-700 mb-1">Response Output Format <span class="text-red-500">*</span></label>
+      <label for="responseOutputMimeType" class="block text-sm font-medium text-gray-300 mb-1">Response Output Format <span class="text-red-500">*</span></label>
       <select id="responseOutputMimeType" formControlName="responseOutputMimeType"
-        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm">
-        <option value="text/plain">Text</option>
-        <option value="application/json">JSON</option>
+        class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200">
+        <option value="text/plain">Markdown Project Description</option>
+        <option value="application/json">Next.js Project Files (JSON)</option>
       </select>
     </div>
 
-    @if (showJsonSchemaDescription()) {
+    @if (showJsonFileSchemaDescription()) {
       <div>
-        <label for="jsonSchemaDescription" class="block text-sm font-medium text-gray-700 mb-1">Desired JSON Structure Description (e.g., "An array of product objects with name and price") <span class="text-red-500">*</span></label>
-        <textarea id="jsonSchemaDescription" formControlName="jsonSchemaDescription" rows="3"
-          class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm font-mono text-sm"></textarea>
-        @if (generatorForm.get('jsonSchemaDescription')?.invalid && generatorForm.get('jsonSchemaDescription')?.touched) {
-          <p class="text-red-500 text-xs mt-1">JSON structure description is required for JSON output.</p>
+        <label for="jsonFileSchemaDescription" class="block text-sm font-medium text-gray-300 mb-1">Desired JSON File Structure Description (e.g., "An array of files with filePath and fileContent") <span class="text-red-500">*</span></label>
+        <textarea id="jsonFileSchemaDescription" formControlName="jsonFileSchemaDescription" rows="3"
+          class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm font-mono text-sm bg-gray-700 text-gray-200"></textarea>
+        @if (generatorForm.get('jsonFileSchemaDescription')?.invalid && generatorForm.get('jsonFileSchemaDescription')?.touched) {
+          <p class="text-red-500 text-xs mt-1">JSON file structure description is required for JSON output.</p>
         }
       </div>
     }
   </section>
 
   <!-- Third-Party Integrations Section -->
-  <section class="space-y-6 p-6 rounded-lg bg-blue-50/20" appScrollAnimation>
-    <h3 class="text-2xl font-semibold text-blue-600 border-b-2 border-blue-200 pb-2 mb-4">6. Third-Party Integrations (Suggestions)</h3>
+  <section class="space-y-6 p-6 rounded-lg bg-gray-800/50" appScrollAnimation>
+    <h3 class="text-2xl font-semibold text-purple-400 border-b-2 border-gray-700 pb-2 mb-4">6. Third-Party Integrations & Backend</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <label for="enablePaymentGatewaySuggestions" class="flex items-center p-3 bg-blue-50 rounded-md cursor-pointer hover:bg-blue-100 transition duration-200 ease-in-out shadow-sm">
+      <label for="enablePaymentGatewaySuggestions" class="flex items-center p-3 bg-gray-700 rounded-md cursor-pointer hover:bg-gray-600 transition duration-200 ease-in-out shadow-sm">
         <input type="checkbox" id="enablePaymentGatewaySuggestions" formControlName="enablePaymentGatewaySuggestions"
-          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
-        <span class="ml-2 text-sm font-medium text-gray-700">Payment Gateway Suggestions</span>
+          class="form-checkbox h-5 w-5 text-teal-500 rounded focus:ring-purple-500">
+        <span class="ml-2 text-sm font-medium text-gray-300">Payment Gateway Integration (Stripe)</span>
       </label>
-      <label for="enableCrmIntegrationSuggestions" class="flex items-center p-3 bg-blue-50 rounded-md cursor-pointer hover:bg-blue-100 transition duration-200 ease-in-out shadow-sm">
+      <label for="enableCrmIntegrationSuggestions" class="flex items-center p-3 bg-gray-700 rounded-md cursor-pointer hover:bg-gray-600 transition duration-200 ease-in-out shadow-sm">
         <input type="checkbox" id="enableCrmIntegrationSuggestions" formControlName="enableCrmIntegrationSuggestions"
-          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
-        <span class="ml-2 text-sm font-medium text-gray-700">CRM Integration Suggestions</span>
+          class="form-checkbox h-5 w-5 text-teal-500 rounded focus:ring-purple-500">
+        <span class="ml-2 text-sm font-medium text-gray-300">CRM Integration (e.g., Salesforce)</span>
       </label>
-      <label for="enableEmailMarketingSuggestions" class="flex items-center p-3 bg-blue-50 rounded-md cursor-pointer hover:bg-blue-100 transition duration-200 ease-in-out shadow-sm">
+      <label for="enableEmailMarketingSuggestions" class="flex items-center p-3 bg-gray-700 rounded-md cursor-pointer hover:bg-gray-600 transition duration-200 ease-in-out shadow-sm">
         <input type="checkbox" id="enableEmailMarketingSuggestions" formControlName="enableEmailMarketingSuggestions"
-          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
-        <span class="ml-2 text-sm font-medium text-gray-700">Email Marketing Suggestions</span>
+          class="form-checkbox h-5 w-5 text-teal-500 rounded focus:ring-purple-500">
+        <span class="ml-2 text-sm font-medium text-gray-300">Email Marketing (e.g., Mailchimp)</span>
       </label>
+    </div>
+    <div class="mt-4">
+      <label for="databasePreference" class="block text-sm font-medium text-gray-300 mb-1">Database Preference (for backend)</label>
+      <select id="databasePreference" formControlName="databasePreference"
+        class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm bg-gray-700 text-gray-200">
+        @for (db of databasePreferences(); track db) {
+          <option [value]="db">{{ db }}</option>
+        }
+      </select>
     </div>
   </section>
 
   <!-- Other Advanced Features Section -->
-  <section class="space-y-6 p-6 rounded-lg bg-blue-50/20" appScrollAnimation>
-    <h3 class="text-2xl font-semibold text-blue-600 border-b-2 border-blue-200 pb-2 mb-4">7. Other Advanced Features</h3>
+  <section class="space-y-6 p-6 rounded-lg bg-gray-800/50" appScrollAnimation>
+    <h3 class="text-2xl font-semibold text-purple-400 border-b-2 border-gray-700 pb-2 mb-4">7. Advanced Next.js Features</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <label for="responsiveDesign" class="flex items-center p-3 bg-blue-50 rounded-md cursor-not-allowed transition duration-200 ease-in-out shadow-sm">
+      <label for="responsiveDesign" class="flex items-center p-3 bg-gray-700 rounded-md cursor-not-allowed transition duration-200 ease-in-out shadow-sm">
         <input type="checkbox" id="responsiveDesign" formControlName="responsiveDesign" disabled
-          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500 cursor-not-allowed">
-        <span class="ml-2 text-sm font-medium text-gray-700">Responsive Design (Default)</span>
+          class="form-checkbox h-5 w-5 text-teal-500 rounded focus:ring-purple-500 cursor-not-allowed">
+        <span class="ml-2 text-sm font-medium text-gray-300">Responsive Design (Default)</span>
       </label>
-      <label for="accessibilityAudit" class="flex items-center p-3 bg-blue-50 rounded-md cursor-pointer hover:bg-blue-100 transition duration-200 ease-in-out shadow-sm">
+      <label for="accessibilityAudit" class="flex items-center p-3 bg-gray-700 rounded-md cursor-pointer hover:bg-gray-600 transition duration-200 ease-in-out shadow-sm">
         <input type="checkbox" id="accessibilityAudit" formControlName="accessibilityAudit"
-          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
-        <span class="ml-2 text-sm font-medium text-gray-700">AI Accessibility Audit</span>
+          class="form-checkbox h-5 w-5 text-teal-500 rounded focus:ring-purple-500">
+        <span class="ml-2 text-sm font-medium text-gray-300">AI Accessibility Audit Suggestions</span>
       </label>
-      <label for="performanceTips" class="flex items-center p-3 bg-blue-50 rounded-md cursor-pointer hover:bg-blue-100 transition duration-200 ease-in-out shadow-sm">
+      <label for="performanceTips" class="flex items-center p-3 bg-gray-700 rounded-md cursor-pointer hover:bg-gray-600 transition duration-200 ease-in-out shadow-sm">
         <input type="checkbox" id="performanceTips" formControlName="performanceTips"
-          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
-        <span class="ml-2 text-sm font-medium text-gray-700">AI Performance Tips</span>
+          class="form-checkbox h-5 w-5 text-teal-500 rounded focus:ring-purple-500">
+        <span class="ml-2 text-sm font-medium text-gray-300">AI Performance Optimization Tips</span>
       </label>
-      <label for="integrateSocialMedia" class="flex items-center p-3 bg-blue-50 rounded-md cursor-pointer hover:bg-blue-100 transition duration-200 ease-in-out shadow-sm">
+      <label for="integrateSocialMedia" class="flex items-center p-3 bg-gray-700 rounded-md cursor-pointer hover:bg-gray-600 transition duration-200 ease-in-out shadow-sm">
         <input type="checkbox" id="integrateSocialMedia" formControlName="integrateSocialMedia"
-          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
-        <span class="ml-2 text-sm font-medium text-gray-700">Integrate Social Media</span>
+          class="form-checkbox h-5 w-5 text-teal-500 rounded focus:ring-purple-500">
+        <span class="ml-2 text-sm font-medium text-gray-300">Integrate Social Media Links</span>
       </label>
-      <label for="includeContactForm" class="flex items-center p-3 bg-blue-50 rounded-md cursor-pointer hover:bg-blue-100 transition duration-200 ease-in-out shadow-sm">
+      <label for="includeContactForm" class="flex items-center p-3 bg-gray-700 rounded-md cursor-pointer hover:bg-gray-600 transition duration-200 ease-in-out shadow-sm">
         <input type="checkbox" id="includeContactForm" formControlName="includeContactForm"
-          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
-        <span class="ml-2 text-sm font-medium text-gray-700">Include Contact Form</span>
+          class="form-checkbox h-5 w-5 text-teal-500 rounded focus:ring-purple-500">
+        <span class="ml-2 text-sm font-medium text-gray-300">Include Contact Form Component</span>
       </label>
-      <label for="requireUserAuth" class="flex items-center p-3 bg-blue-50 rounded-md cursor-pointer hover:bg-blue-100 transition duration-200 ease-in-out shadow-sm">
+      <label for="requireUserAuth" class="flex items-center p-3 bg-gray-700 rounded-md cursor-pointer hover:bg-gray-600 transition duration-200 ease-in-out shadow-sm">
         <input type="checkbox" id="requireUserAuth" formControlName="requireUserAuth"
-          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
-        <span class="ml-2 text-sm font-medium text-gray-700">Require User Authentication</span>
+          class="form-checkbox h-5 w-5 text-teal-500 rounded focus:ring-purple-500">
+        <span class="ml-2 text-sm font-medium text-gray-300">Require User Authentication (NextAuth.js)</span>
       </label>
-      <label for="includeAnalytics" class="flex items-center p-3 bg-blue-50 rounded-md cursor-pointer hover:bg-blue-100 transition duration-200 ease-in-out shadow-sm">
+      <label for="includeAnalytics" class="flex items-center p-3 bg-gray-700 rounded-md cursor-pointer hover:bg-gray-600 transition duration-200 ease-in-out shadow-sm">
         <input type="checkbox" id="includeAnalytics" formControlName="includeAnalytics"
-          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
-        <span class="ml-2 text-sm font-medium text-gray-700">Include Analytics Integration</span>
+          class="form-checkbox h-5 w-5 text-teal-500 rounded focus:ring-purple-500">
+        <span class="ml-2 text-sm font-medium text-gray-300">Include Analytics Integration (Vercel Analytics)</span>
       </label>
     </div>
 
     <div>
-      <label for="customCssSnippets" class="block text-sm font-medium text-gray-700 mb-1">Custom CSS Snippets (for generated site)</label>
+      <label for="customCssSnippets" class="block text-sm font-medium text-gray-300 mb-1">Custom CSS Snippets (for `globals.css`)</label>
       <textarea id="customCssSnippets" formControlName="customCssSnippets" rows="3" placeholder="/* Add custom CSS rules here */"
-        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm font-mono text-sm"></textarea>
+        class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm font-mono text-sm bg-gray-700 text-gray-200"></textarea>
       @if (generatorForm.get('customCssSnippets')?.invalid && generatorForm.get('customCssSnippets')?.touched) {
         <p class="text-red-500 text-xs mt-1">Custom CSS is too long.</p>
       }
     </div>
     <div>
-      <label for="customJsSnippets" class="block text-sm font-medium text-gray-700 mb-1">Custom JS Snippets (for generated site)</label>
-      <textarea id="customJsSnippets" formControlName="customJsSnippets" rows="3" placeholder="// Add custom JavaScript code here"
-        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm font-mono text-sm"></textarea>
+      <label for="customJsSnippets" class="block text-sm font-medium text-gray-300 mb-1">Custom JS Snippets (for `_app.tsx` or components)</label>
+      <textarea id="customJsSnippets" formControlName="customJsSnippets" rows="3" placeholder="// Add custom JavaScript/TypeScript code here"
+        class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-300 ease-in-out hover:border-purple-400 shadow-sm font-mono text-sm bg-gray-700 text-gray-200"></textarea>
       @if (generatorForm.get('customJsSnippets')?.invalid && generatorForm.get('customJsSnippets')?.touched) {
         <p class="text-red-500 text-xs mt-1">Custom JS is too long.</p>
       }
@@ -459,12 +468,12 @@
 
   <div class="flex justify-end gap-4 pt-4">
     <button type="button" (click)="resetForm()"
-      class="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg font-semibold hover:bg-gray-300 transition duration-300 ease-in-out shadow-md">
+      class="px-6 py-3 bg-gray-700 text-gray-200 rounded-lg font-semibold hover:bg-gray-600 transition duration-300 ease-in-out shadow-md">
       Reset
     </button>
     <button type="submit"
-      class="px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition duration-300 ease-in-out shadow-md hover:shadow-lg">
-      Generate Website
+      class="px-8 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition duration-300 ease-in-out shadow-md hover:shadow-lg">
+      Generate Next.js Project
     </button>
   </div>
 </form>

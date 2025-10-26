@@ -1,6 +1,6 @@
 # Contribution Guidelines
 
-We welcome and appreciate contributions to the AI Website Generator! By contributing, you help us improve this tool for everyone. Please take a moment to review this document to understand how to contribute effectively.
+We welcome and appreciate contributions to Neura AI! By contributing, you help us improve this tool for everyone. Please take a moment to review this document to understand how to contribute effectively.
 
 ## 🌟 How to Contribute
 
@@ -39,8 +39,8 @@ To set up your local development environment:
 1.  **Fork the Repository:** Click the "Fork" button on the top right of the GitHub repository page.
 2.  **Clone Your Fork:**
     ```bash
-    git clone https://github.com/YOUR_GITHUB_USERNAME/ai-website-generator.git
-    cd ai-website-generator
+    git clone https://github.com/YOUR_GITHUB_USERNAME/neura-ai-nextjs-generator.git
+    cd neura-ai-nextjs-generator
     ```
 3.  **Install Dependencies:**
     ```bash
@@ -76,9 +76,9 @@ Please follow conventional commits for your commit messages. This helps with aut
 
 **Examples:**
 
-*   `feat(form): add font style selection`
-*   `fix(preview): correct iframe loading issue`
-*   `docs: update contribution guidelines`
+*   `feat(form): add Next.js specific options`
+*   `fix(preview): handle JSON file structure display`
+*   `docs: update contribution guidelines for Neura AI`
 *   `chore(deps): upgrade angular dependencies`
 
 ## 🔃 Pull Request Process
@@ -105,11 +105,11 @@ Please follow conventional commits for your commit messages. This helps with aut
 *   Follow Angular best practices (standalone components, signals, `OnPush` change detection).
 *   Use TypeScript for strict typing.
 *   Adhere to existing file structures and naming conventions.
-*   Ensure all new features are styled with Tailwind CSS, maintaining the white and blue theme.
-*   Ensure generated HTML from AI models adheres to accessibility guidelines and modern web standards.
+*   Ensure all new features are styled with Tailwind CSS, maintaining the dark and vibrant theme.
+*   Ensure the AI generates Next.js code following modern React/Next.js best practices, accessibility guidelines, and Tailwind CSS conventions.
 
 ## 🚨 Code of Conduct
 
 Please note that this project is released with a Contributor Code of Conduct. By participating in this project, you agree to abide by its terms.
 
-Thank you for contributing to the AI Website Generator!
+Thank you for contributing to Neura AI!

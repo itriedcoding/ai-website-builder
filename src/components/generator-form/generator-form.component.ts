@@ -15,16 +15,13 @@ function minMaxValidator(min: number, max: number): ValidatorFn {
 }
 
 // Custom validator for JSON schema description based on mime type
-function jsonSchemaValidator(control: AbstractControl): { [key: string]: any } | null {
-  // Use get('responseOutputMimeType') directly on the parent group
+function jsonFileSchemaValidator(control: AbstractControl): { [key: string]: any } | null {
   const responseOutputMimeTypeControl = control.parent?.get('responseOutputMimeType');
   const responseOutputMimeType = responseOutputMimeTypeControl?.value;
-  const jsonSchemaDescription = control.value;
+  const fileSchemaDescription = control.value;
 
-  // Check if responseOutputMimeType is 'application/json' AND it's not disabled (i.e., Google Search is not enabled)
-  // AND the jsonSchemaDescription is empty or just whitespace
-  if (responseOutputMimeType === 'application/json' && !responseOutputMimeTypeControl?.disabled && !jsonSchemaDescription?.trim()) {
-    return { 'jsonSchemaRequired': true };
+  if (responseOutputMimeType === 'application/json' && !responseOutputMimeTypeControl?.disabled && !fileSchemaDescription?.trim()) {
+    return { 'jsonFileSchemaRequired': true };
   }
   return null;
 }
@@ -43,57 +40,58 @@ export class GeneratorFormComponent {
   generatorForm: FormGroup;
 
   keyPagesOptions = signal([
-    'Home', 'About', 'Services', 'Contact', 'Blog', 'Products', 'FAQ', 'Gallery', 'Testimonials', 'Pricing'
+    'Home', 'About', 'Services', 'Contact', 'Blog', 'Products', 'FAQ', 'Gallery', 'Testimonials', 'Pricing', 'Dashboard'
   ]);
-  websiteTypes = signal(['Blog', 'E-commerce', 'Portfolio', 'Landing Page', 'Corporate', 'Community', 'News Portal']);
-  brandTones = signal(['Professional', 'Playful', 'Innovative', 'Minimalist', 'Luxurious', 'Friendly', 'Authoritative']);
-  fontStyles = signal(['Sans-serif (Modern)', 'Serif (Classic)', 'Monospace (Techy)']);
-  layoutPreferences = signal(['Modern Grid', 'Minimalist', 'Bold & Dynamic', 'Classic & Elegant']);
-  iconStyles = signal(['Line Icons', 'Solid Icons', 'Duotone Icons', 'Flat Icons']);
-  animationIntensities = signal(['Subtle', 'Moderate', 'Energetic']);
-  languagePreferences = signal(['English', 'Spanish', 'French', 'German']);
+  websiteTypes = signal(['Marketing Site', 'E-commerce Store', 'Portfolio', 'SaaS Landing Page', 'Admin Dashboard', 'Community Forum', 'News Blog']);
+  brandTones = signal(['Professional', 'Playful', 'Innovative', 'Minimalist', 'Luxurious', 'Friendly', 'Authoritative', 'Cutting-edge']);
+  fontStyles = signal(['Inter (Modern Sans-serif)', 'Roboto (Clean Sans-serif)', 'Open Sans (Versatile Sans-serif)', 'Lora (Elegant Serif)', 'Space Mono (Developer Monospace)']);
+  layoutPreferences = signal(['Minimalist & Clean', 'Bold & Dynamic', 'Classic & Elegant', 'Component-driven']);
+  iconStyles = signal(['Lucide Icons (Line)', 'Heroicons (Solid)', 'Radix Icons (Outline)', 'Tabler Icons (Outline)']);
+  animationIntensities = signal(['Subtle', 'Moderate', 'Energetic', 'Interactive']);
+  languagePreferences = signal(['TypeScript', 'JavaScript']);
+  databasePreferences = signal(['PostgreSQL (Prisma)', 'MongoDB (Mongoose)', 'SQLite (Drizzle)']);
 
   constructor(private fb: FormBuilder) {
     this.generatorForm = this.fb.group({
-      websiteIdea: ['A sophisticated online portfolio for a freelance graphic designer.', Validators.required],
-      websiteType: ['Portfolio', Validators.required],
-      industry: ['Graphic Design', Validators.required],
-      targetAudience: ['Potential clients seeking high-quality design work', Validators.required],
-      primaryColor: ['#3B82F6', Validators.required], // Tailwind blue-500
-      accentColor: ['#60A5FA', Validators.required], // Tailwind blue-400
-      fontStyle: ['Sans-serif (Modern)', Validators.required],
-      brandTone: ['Professional', Validators.required],
-      layoutPreference: ['Modern Grid', Validators.required],
-      iconStyle: ['Line Icons', Validators.required],
+      websiteIdea: ['A modern Next.js SaaS landing page with authentication and a dashboard.', Validators.required],
+      websiteType: ['SaaS Landing Page', Validators.required],
+      industry: ['Software as a Service (SaaS)', Validators.required],
+      targetAudience: ['Tech startups and small businesses looking for robust solutions', Validators.required],
+      primaryColor: ['#8B5CF6', Validators.required], // Tailwind purple-500
+      accentColor: ['#2DD4BF', Validators.required], // Tailwind teal-400
+      fontStyle: ['Inter (Modern Sans-serif)', Validators.required],
+      brandTone: ['Cutting-edge', Validators.required],
+      layoutPreference: ['Component-driven', Validators.required],
+      iconStyle: ['Lucide Icons (Line)', Validators.required],
 
-      keyPages: [['Home', 'About', 'Services', 'Contact', 'Gallery'], Validators.required],
+      keyPages: [['Home', 'About', 'Features', 'Pricing', 'Contact', 'Dashboard'], Validators.required],
       numberOfSections: [5, [Validators.required, minMaxValidator(3, 10)]],
       generateSampleContent: [true],
 
       includeSEOKeywords: [true],
-      seoKeywords: ['graphic design portfolio, freelance designer, branding, web design', Validators.maxLength(200)],
+      seoKeywords: ['Next.js SaaS, modern web app, component library, full-stack', Validators.maxLength(200)],
 
       includeCTA: [true],
-      ctaText: ['View My Portfolio', Validators.maxLength(50)],
-      ctaLink: ['#portfolio', Validators.maxLength(100)],
+      ctaText: ['Start Free Trial', Validators.maxLength(50)],
+      ctaLink: ['/signup', Validators.maxLength(100)],
 
       includeTestimonials: [true],
       numberOfTestimonials: [3, [minMaxValidator(1, 5)]],
 
-      includeBlogPosts: [false],
+      includeBlogPosts: [true],
       numberOfBlogPosts: [3, [minMaxValidator(1, 5)]],
 
-      footerContent: ['Copyright 2024. All Rights Reserved. Privacy Policy. Terms of Service.', Validators.maxLength(200)],
+      footerContent: ['Copyright 2024. Neura AI. All Rights Reserved. Powered by Gemini. Privacy. Terms.', Validators.maxLength(200)],
 
       responsiveDesign: [{ value: true, disabled: true }], // Always true, just for UI
       accessibilityAudit: [true],
       performanceTips: [true],
       integrateSocialMedia: [true],
       includeContactForm: [true],
-      requireUserAuth: [false],
+      requireUserAuth: [true],
       includeAnalytics: [true],
-      customCssSnippets: ['', Validators.maxLength(500)],
-      customJsSnippets: ['', Validators.maxLength(500)],
+      customCssSnippets: ['/* Add your custom Tailwind classes or CSS here */', Validators.maxLength(500)],
+      customJsSnippets: ['// Add your custom React hooks or client-side logic here', Validators.maxLength(500)],
 
       // New AI Configuration fields
       temperature: [0.7, [Validators.required, minMaxValidator(0.0, 1.0)]],
@@ -101,60 +99,61 @@ export class GeneratorFormComponent {
       topK: [64, [Validators.required, minMaxValidator(1, 100)]],
       maxOutputTokens: [2048, [Validators.required, minMaxValidator(1, 4096)]],
       thinkingBudget: [500, [Validators.required, minMaxValidator(0, 1000)]], // Specific to gemini-2.5-flash
-      systemInstruction: ['', Validators.maxLength(1000)],
+      systemInstruction: ['You are an expert Next.js developer and architect.', Validators.maxLength(1000)],
       enableGoogleSearch: [false],
       responseOutputMimeType: ['text/plain'], // 'text/plain' or 'application/json'
-      jsonSchemaDescription: ['', jsonSchemaValidator], // Custom validator for conditional requirement
+      jsonFileSchemaDescription: ['', jsonFileSchemaValidator], // Custom validator for conditional requirement
 
       // New Advanced UI/UX & Content fields
       animationIntensity: ['Moderate', Validators.required],
-      imageGenerationPrompt: ['', Validators.maxLength(500)],
-      videoGenerationPrompt: ['', Validators.maxLength(500)],
+      imageGenerationPrompt: ['A futuristic, minimalist server room with glowing blue and purple lights.', Validators.maxLength(500)],
+      videoGenerationPrompt: ['A smooth animation of data flowing through a network, abstract and digital.', Validators.maxLength(500)],
       includePreloader: [true],
-      includeCookieConsent: [false],
-      languagePreference: ['English', Validators.required],
+      includeCookieConsent: [true],
+      languagePreference: ['TypeScript', Validators.required],
 
       // New Third-Party Integrations fields
-      enablePaymentGatewaySuggestions: [false],
+      enablePaymentGatewaySuggestions: [true],
       enableCrmIntegrationSuggestions: [false],
-      enableEmailMarketingSuggestions: [false],
+      enableEmailMarketingSuggestions: [true],
+      databasePreference: ['PostgreSQL (Prisma)', Validators.required], // Default for backend
 
       // New Content Strategy & SEO fields
       generateContentStrategy: [false],
-      includeStructuredData: [false],
+      includeStructuredData: [true],
     });
 
     // Add logic to disable/enable based on Google Search and JSON output
     this.generatorForm.get('enableGoogleSearch')?.valueChanges.subscribe(value => {
       const responseOutputMimeTypeControl = this.generatorForm.get('responseOutputMimeType');
-      const jsonSchemaDescriptionControl = this.generatorForm.get('jsonSchemaDescription');
+      const jsonFileSchemaDescriptionControl = this.generatorForm.get('jsonFileSchemaDescription');
 
       if (value) {
         responseOutputMimeTypeControl?.setValue('text/plain'); // Force to text/plain if Google Search is on
         responseOutputMimeTypeControl?.disable();
-        jsonSchemaDescriptionControl?.disable();
-        jsonSchemaDescriptionControl?.setValue(''); // Clear value when disabled
+        jsonFileSchemaDescriptionControl?.disable();
+        jsonFileSchemaDescriptionControl?.setValue(''); // Clear value when disabled
       } else {
         responseOutputMimeTypeControl?.enable();
-        // Only enable jsonSchemaDescription if responseOutputMimeType is 'application/json'
+        // Only enable jsonFileSchemaDescription if responseOutputMimeType is 'application/json'
         if (responseOutputMimeTypeControl?.value === 'application/json') {
-          jsonSchemaDescriptionControl?.enable();
+          jsonFileSchemaDescriptionControl?.enable();
         }
       }
-      jsonSchemaDescriptionControl?.updateValueAndValidity(); // Re-validate after enable/disable
+      jsonFileSchemaDescriptionControl?.updateValueAndValidity(); // Re-validate after enable/disable
     });
 
     this.generatorForm.get('responseOutputMimeType')?.valueChanges.subscribe(value => {
-      const jsonSchemaDescriptionControl = this.generatorForm.get('jsonSchemaDescription');
+      const jsonFileSchemaDescriptionControl = this.generatorForm.get('jsonFileSchemaDescription');
       const isGoogleSearchEnabled = this.generatorForm.get('enableGoogleSearch')?.value;
 
       if (value === 'application/json' && !isGoogleSearchEnabled) {
-        jsonSchemaDescriptionControl?.enable();
+        jsonFileSchemaDescriptionControl?.enable();
       } else {
-        jsonSchemaDescriptionControl?.disable();
-        jsonSchemaDescriptionControl?.setValue(''); // Clear value when disabled
+        jsonFileSchemaDescriptionControl?.disable();
+        jsonFileSchemaDescriptionControl?.setValue(''); // Clear value when disabled
       }
-      jsonSchemaDescriptionControl?.updateValueAndValidity(); // Re-validate after enable/disable
+      jsonFileSchemaDescriptionControl?.updateValueAndValidity(); // Re-validate after enable/disable
     });
   }
 
@@ -163,7 +162,7 @@ export class GeneratorFormComponent {
   showCTADetails = computed(() => this.generatorForm.get('includeCTA')?.value);
   showTestimonialDetails = computed(() => this.generatorForm.get('includeTestimonials')?.value);
   showBlogDetails = computed(() => this.generatorForm.get('includeBlogPosts')?.value);
-  showJsonSchemaDescription = computed(() => this.generatorForm.get('responseOutputMimeType')?.value === 'application/json' && !this.generatorForm.get('enableGoogleSearch')?.value);
+  showJsonFileSchemaDescription = computed(() => this.generatorForm.get('responseOutputMimeType')?.value === 'application/json' && !this.generatorForm.get('enableGoogleSearch')?.value);
 
 
   onCheckboxChange(event: Event, controlName: string, option: string) {
@@ -181,8 +180,8 @@ export class GeneratorFormComponent {
   }
 
   onSubmit() {
-    // Manually trigger validation for jsonSchemaDescription if conditionally required
-    this.generatorForm.get('jsonSchemaDescription')?.updateValueAndValidity();
+    // Manually trigger validation for jsonFileSchemaDescription if conditionally required
+    this.generatorForm.get('jsonFileSchemaDescription')?.updateValueAndValidity();
 
     if (this.generatorForm.valid) {
       this.generate.emit(this.generatorForm.getRawValue()); // Use getRawValue to get disabled fields too
@@ -194,62 +193,63 @@ export class GeneratorFormComponent {
 
   resetForm() {
     this.generatorForm.reset({
-      websiteIdea: 'A sophisticated online portfolio for a freelance graphic designer.',
-      websiteType: 'Portfolio',
-      industry: 'Graphic Design',
-      targetAudience: 'Potential clients seeking high-quality design work',
-      primaryColor: '#3B82F6',
-      accentColor: '#60A5FA',
-      fontStyle: 'Sans-serif (Modern)',
-      brandTone: 'Professional',
-      layoutPreference: 'Modern Grid',
-      iconStyle: 'Line Icons',
-      keyPages: ['Home', 'About', 'Services', 'Contact', 'Gallery'],
+      websiteIdea: 'A modern Next.js SaaS landing page with authentication and a dashboard.',
+      websiteType: 'SaaS Landing Page',
+      industry: 'Software as a Service (SaaS)',
+      targetAudience: 'Tech startups and small businesses looking for robust solutions',
+      primaryColor: '#8B5CF6', // Tailwind purple-500
+      accentColor: '#2DD4BF', // Tailwind teal-400
+      fontStyle: 'Inter (Modern Sans-serif)',
+      brandTone: 'Cutting-edge',
+      layoutPreference: 'Component-driven',
+      iconStyle: 'Lucide Icons (Line)',
+      keyPages: ['Home', 'About', 'Features', 'Pricing', 'Contact', 'Dashboard'],
       numberOfSections: 5,
       generateSampleContent: true,
       includeSEOKeywords: true,
-      seoKeywords: 'graphic design portfolio, freelance designer, branding, web design',
+      seoKeywords: 'Next.js SaaS, modern web app, component library, full-stack',
       includeCTA: true,
-      ctaText: 'View My Portfolio',
-      ctaLink: '#portfolio',
+      ctaText: 'Start Free Trial',
+      ctaLink: '/signup',
       includeTestimonials: true,
       numberOfTestimonials: 3,
-      includeBlogPosts: false,
+      includeBlogPosts: true,
       numberOfBlogPosts: 3,
-      footerContent: 'Copyright 2024. All Rights Reserved. Privacy Policy. Terms of Service.',
+      footerContent: 'Copyright 2024. Neura AI. All Rights Reserved. Powered by Gemini. Privacy. Terms.',
       responsiveDesign: true,
       accessibilityAudit: true,
       performanceTips: true,
       integrateSocialMedia: true,
       includeContactForm: true,
-      requireUserAuth: false,
+      requireUserAuth: true,
       includeAnalytics: true,
-      customCssSnippets: '',
-      customJsSnippets: '',
+      customCssSnippets: '/* Add your custom Tailwind classes or CSS here */',
+      customJsSnippets: '// Add your custom React hooks or client-side logic here',
       // New fields reset
       temperature: 0.7,
       topP: 0.95,
       topK: 64,
       maxOutputTokens: 2048,
       thinkingBudget: 500, // Correctly set thinkingBudget on reset
-      systemInstruction: '',
+      systemInstruction: 'You are an expert Next.js developer and architect.',
       enableGoogleSearch: false,
       responseOutputMimeType: 'text/plain',
-      jsonSchemaDescription: '',
+      jsonFileSchemaDescription: '',
       animationIntensity: 'Moderate',
-      imageGenerationPrompt: '',
-      videoGenerationPrompt: '',
+      imageGenerationPrompt: 'A futuristic, minimalist server room with glowing blue and purple lights.',
+      videoGenerationPrompt: 'A smooth animation of data flowing through a network, abstract and digital.',
       includePreloader: true,
-      includeCookieConsent: false,
-      languagePreference: 'English',
-      enablePaymentGatewaySuggestions: false,
+      includeCookieConsent: true,
+      languagePreference: 'TypeScript',
+      enablePaymentGatewaySuggestions: true,
       enableCrmIntegrationSuggestions: false,
-      enableEmailMarketingSuggestions: false,
+      enableEmailMarketingSuggestions: true,
+      databasePreference: 'PostgreSQL (Prisma)',
       generateContentStrategy: false,
-      includeStructuredData: false,
+      includeStructuredData: true,
     });
     // Ensure controls are re-enabled after reset, then valueChanges observers will handle disabling as needed
     this.generatorForm.get('responseOutputMimeType')?.enable();
-    this.generatorForm.get('jsonSchemaDescription')?.enable();
+    this.generatorForm.get('jsonFileSchemaDescription')?.enable();
   }
 }
