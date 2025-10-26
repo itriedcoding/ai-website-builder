@@ -299,7 +299,19 @@ export class HomeComponent {
       initialChatPrompt += ` Suggest email marketing platform integrations (e.g., Mailchimp, SendGrid) via API routes.`;
     }
     if (formData.databasePreference) {
-      initialChatPrompt += ` Integrate a ${formData.databasePreference} database. Provide relevant schema and basic CRUD API routes.`;
+      let databaseDetails = '';
+      let orm = '';
+      if (formData.databasePreference.includes('PostgreSQL')) {
+        databaseDetails = 'PostgreSQL';
+        orm = 'Prisma';
+      } else if (formData.databasePreference.includes('MongoDB')) {
+        databaseDetails = 'MongoDB';
+        orm = 'Mongoose';
+      } else if (formData.databasePreference.includes('SQLite')) {
+        databaseDetails = 'SQLite';
+        orm = 'Drizzle';
+      }
+      initialChatPrompt += ` Integrate a ${databaseDetails} database using ${orm}. Provide Next.js API routes (in the 'pages/api' directory) for basic CRUD (Create, Read, Update, Delete) operations on a relevant data model (e.g., 'items' for an e-commerce store, 'users' for a SaaS, 'posts' for a blog). Include schema definition and example API handler logic for each CRUD operation.`;
     }
     if (formData.customCssSnippets) {
       initialChatPrompt += ` Include custom CSS snippets in a globals.css or component style: ${formData.customCssSnippets}.`;
