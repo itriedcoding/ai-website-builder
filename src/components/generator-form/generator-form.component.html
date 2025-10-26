@@ -1,0 +1,293 @@
+
+<form [formGroup]="generatorForm" (ngSubmit)="onSubmit()" class="bg-white p-8 rounded-xl shadow-lg border border-blue-100 space-y-8">
+  <div class="text-center mb-6">
+    <h2 class="text-3xl font-bold text-blue-700">Configure Your Website</h2>
+    <p class="text-gray-600 mt-2">Choose from 30+ features to guide the AI in generating your perfect site.</p>
+  </div>
+
+  <!-- Basic Information Section -->
+  <section class="space-y-6" appScrollAnimation>
+    <h3 class="text-2xl font-semibold text-blue-600 border-b-2 border-blue-200 pb-2 mb-4">1. Basic Information</h3>
+    <div>
+      <label for="websiteIdea" class="block text-sm font-medium text-gray-700 mb-1">Website Idea / Description</label>
+      <textarea id="websiteIdea" formControlName="websiteIdea" rows="3"
+        class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400"></textarea>
+      @if (generatorForm.get('websiteIdea')?.invalid && generatorForm.get('websiteIdea')?.touched) {
+        <p class="text-red-500 text-xs mt-1">Website Idea is required.</p>
+      }
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label for="websiteType" class="block text-sm font-medium text-gray-700 mb-1">Website Type</label>
+        <select id="websiteType" formControlName="websiteType"
+          class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400">
+          @for (type of websiteTypes(); track type) {
+            <option [value]="type">{{ type }}</option>
+          }
+        </select>
+      </div>
+      <div>
+        <label for="industry" class="block text-sm font-medium text-gray-700 mb-1">Industry / Niche</label>
+        <input type="text" id="industry" formControlName="industry"
+          class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400">
+        @if (generatorForm.get('industry')?.invalid && generatorForm.get('industry')?.touched) {
+          <p class="text-red-500 text-xs mt-1">Industry is required.</p>
+        }
+      </div>
+    </div>
+    <div>
+      <label for="targetAudience" class="block text-sm font-medium text-gray-700 mb-1">Target Audience</label>
+      <input type="text" id="targetAudience" formControlName="targetAudience"
+        class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400">
+      @if (generatorForm.get('targetAudience')?.invalid && generatorForm.get('targetAudience')?.touched) {
+        <p class="text-red-500 text-xs mt-1">Target Audience is required.</p>
+      }
+    </div>
+  </section>
+
+  <!-- Design & Style Section -->
+  <section class="space-y-6" appScrollAnimation>
+    <h3 class="text-2xl font-semibold text-blue-600 border-b-2 border-blue-200 pb-2 mb-4">2. Design & Style</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label for="primaryColor" class="block text-sm font-medium text-gray-700 mb-1">Primary Color</label>
+        <input type="color" id="primaryColor" formControlName="primaryColor"
+          class="w-full h-12 p-1 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 cursor-pointer">
+      </div>
+      <div>
+        <label for="accentColor" class="block text-sm font-medium text-gray-700 mb-1">Accent Color</label>
+        <input type="color" id="accentColor" formControlName="accentColor"
+          class="w-full h-12 p-1 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 cursor-pointer">
+      </div>
+      <div>
+        <label for="fontStyle" class="block text-sm font-medium text-gray-700 mb-1">Font Style</label>
+        <select id="fontStyle" formControlName="fontStyle"
+          class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400">
+          @for (style of fontStyles(); track style) {
+            <option [value]="style">{{ style }}</option>
+          }
+        </select>
+      </div>
+      <div>
+        <label for="brandTone" class="block text-sm font-medium text-gray-700 mb-1">Brand Tone</label>
+        <select id="brandTone" formControlName="brandTone"
+          class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400">
+          @for (tone of brandTones(); track tone) {
+            <option [value]="tone">{{ tone }}</option>
+          }
+        </select>
+      </div>
+      <div>
+        <label for="layoutPreference" class="block text-sm font-medium text-gray-700 mb-1">Layout Preference</label>
+        <select id="layoutPreference" formControlName="layoutPreference"
+          class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400">
+          @for (layout of layoutPreferences(); track layout) {
+            <option [value]="layout">{{ layout }}</option>
+          }
+        </select>
+      </div>
+      <div>
+        <label for="iconStyle" class="block text-sm font-medium text-gray-700 mb-1">Icon Style</label>
+        <select id="iconStyle" formControlName="iconStyle"
+          class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400">
+          @for (style of iconStyles(); track style) {
+            <option [value]="style">{{ style }}</option>
+          }
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content & Structure Section -->
+  <section class="space-y-6" appScrollAnimation>
+    <h3 class="text-2xl font-semibold text-blue-600 border-b-2 border-blue-200 pb-2 mb-4">3. Content & Structure</h3>
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Key Pages</label>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        @for (page of keyPagesOptions(); track page) {
+          <label class="inline-flex items-center p-2 bg-blue-50 rounded-md cursor-pointer hover:bg-blue-100 transition duration-200 ease-in-out">
+            <input type="checkbox" [value]="page" (change)="onCheckboxChange($event, 'keyPages', page)"
+                   [checked]="generatorForm.get('keyPages')?.value?.includes(page)"
+                   class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+            <span class="ml-2 text-gray-700 text-sm">{{ page }}</span>
+          </label>
+        }
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label for="numberOfSections" class="block text-sm font-medium text-gray-700 mb-1">Number of Homepage Sections</label>
+        <input type="number" id="numberOfSections" formControlName="numberOfSections" min="3" max="10"
+          class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400">
+        @if (generatorForm.get('numberOfSections')?.invalid && generatorForm.get('numberOfSections')?.touched) {
+          <p class="text-red-500 text-xs mt-1">Between 3 and 10 sections.</p>
+        }
+      </div>
+      <div class="flex items-center pt-6">
+        <input type="checkbox" id="generateSampleContent" formControlName="generateSampleContent"
+          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+        <label for="generateSampleContent" class="ml-2 text-sm font-medium text-gray-700">Generate Sample Content</label>
+      </div>
+    </div>
+
+    <div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="includeSEOKeywords" formControlName="includeSEOKeywords"
+          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+        <label for="includeSEOKeywords" class="ml-2 text-sm font-medium text-gray-700">Include SEO Keywords</label>
+      </div>
+      @if (showSEOKeywords()) {
+        <input type="text" id="seoKeywords" formControlName="seoKeywords" placeholder="e.g., web development, angular, signals"
+          class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400">
+        @if (generatorForm.get('seoKeywords')?.invalid && generatorForm.get('seoKeywords')?.touched) {
+          <p class="text-red-500 text-xs mt-1">SEO Keywords are too long.</p>
+        }
+      }
+    </div>
+
+    <div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="includeCTA" formControlName="includeCTA"
+          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+        <label for="includeCTA" class="ml-2 text-sm font-medium text-gray-700">Include Call-to-Action (CTA)</label>
+      </div>
+      @if (showCTADetails()) {
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
+          <div>
+            <label for="ctaText" class="block text-sm font-medium text-gray-700 mb-1">CTA Text</label>
+            <input type="text" id="ctaText" formControlName="ctaText" placeholder="e.g., Learn More"
+              class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400">
+            @if (generatorForm.get('ctaText')?.invalid && generatorForm.get('ctaText')?.touched) {
+              <p class="text-red-500 text-xs mt-1">CTA Text is too long.</p>
+            }
+          </div>
+          <div>
+            <label for="ctaLink" class="block text-sm font-medium text-gray-700 mb-1">CTA Link</label>
+            <input type="text" id="ctaLink" formControlName="ctaLink" placeholder="e.g., /about"
+              class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400">
+            @if (generatorForm.get('ctaLink')?.invalid && generatorForm.get('ctaLink')?.touched) {
+              <p class="text-red-500 text-xs mt-1">CTA Link is too long.</p>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="includeTestimonials" formControlName="includeTestimonials"
+          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+        <label for="includeTestimonials" class="ml-2 text-sm font-medium text-gray-700">Include Testimonials Section</label>
+      </div>
+      @if (showTestimonialDetails()) {
+        <div class="mt-2">
+          <label for="numberOfTestimonials" class="block text-sm font-medium text-gray-700 mb-1">Number of Testimonials</label>
+          <input type="number" id="numberOfTestimonials" formControlName="numberOfTestimonials" min="1" max="5"
+            class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400">
+          @if (generatorForm.get('numberOfTestimonials')?.invalid && generatorForm.get('numberOfTestimonials')?.touched) {
+            <p class="text-red-500 text-xs mt-1">Between 1 and 5 testimonials.</p>
+          }
+        </div>
+      }
+    </div>
+
+    <div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="includeBlogPosts" formControlName="includeBlogPosts"
+          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+        <label for="includeBlogPosts" class="ml-2 text-sm font-medium text-gray-700">Include Blog Posts Section</label>
+      </div>
+      @if (showBlogDetails()) {
+        <div class="mt-2">
+          <label for="numberOfBlogPosts" class="block text-sm font-medium text-gray-700 mb-1">Number of Blog Posts</label>
+          <input type="number" id="numberOfBlogPosts" formControlName="numberOfBlogPosts" min="1" max="5"
+            class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400">
+          @if (generatorForm.get('numberOfBlogPosts')?.invalid && generatorForm.get('numberOfBlogPosts')?.touched) {
+            <p class="text-red-500 text-xs mt-1">Between 1 and 5 blog posts.</p>
+          }
+        </div>
+      }
+    </div>
+
+    <div>
+      <label for="footerContent" class="block text-sm font-medium text-gray-700 mb-1">Footer Content Options</label>
+      <textarea id="footerContent" formControlName="footerContent" rows="2"
+        class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400"></textarea>
+      @if (generatorForm.get('footerContent')?.invalid && generatorForm.get('footerContent')?.touched) {
+        <p class="text-red-500 text-xs mt-1">Footer content is too long.</p>
+      }
+    </div>
+  </section>
+
+  <!-- Advanced Features Section -->
+  <section class="space-y-6" appScrollAnimation>
+    <h3 class="text-2xl font-semibold text-blue-600 border-b-2 border-blue-200 pb-2 mb-4">4. Advanced Features</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="flex items-center p-3 bg-blue-50 rounded-md hover:bg-blue-100 transition duration-200 ease-in-out">
+        <input type="checkbox" id="responsiveDesign" formControlName="responsiveDesign" disabled
+          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500 cursor-not-allowed">
+        <label for="responsiveDesign" class="ml-2 text-sm font-medium text-gray-700">Responsive Design (Default)</label>
+      </div>
+      <div class="flex items-center p-3 bg-blue-50 rounded-md hover:bg-blue-100 transition duration-200 ease-in-out">
+        <input type="checkbox" id="accessibilityAudit" formControlName="accessibilityAudit"
+          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+        <label for="accessibilityAudit" class="ml-2 text-sm font-medium text-gray-700">AI Accessibility Audit</label>
+      </div>
+      <div class="flex items-center p-3 bg-blue-50 rounded-md hover:bg-blue-100 transition duration-200 ease-in-out">
+        <input type="checkbox" id="performanceTips" formControlName="performanceTips"
+          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+        <label for="performanceTips" class="ml-2 text-sm font-medium text-gray-700">AI Performance Tips</label>
+      </div>
+      <div class="flex items-center p-3 bg-blue-50 rounded-md hover:bg-blue-100 transition duration-200 ease-in-out">
+        <input type="checkbox" id="integrateSocialMedia" formControlName="integrateSocialMedia"
+          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+        <label for="integrateSocialMedia" class="ml-2 text-sm font-medium text-gray-700">Integrate Social Media</label>
+      </div>
+      <div class="flex items-center p-3 bg-blue-50 rounded-md hover:bg-blue-100 transition duration-200 ease-in-out">
+        <input type="checkbox" id="includeContactForm" formControlName="includeContactForm"
+          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+        <label for="includeContactForm" class="ml-2 text-sm font-medium text-gray-700">Include Contact Form</label>
+      </div>
+      <div class="flex items-center p-3 bg-blue-50 rounded-md hover:bg-blue-100 transition duration-200 ease-in-out">
+        <input type="checkbox" id="requireUserAuth" formControlName="requireUserAuth"
+          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+        <label for="requireUserAuth" class="ml-2 text-sm font-medium text-gray-700">Require User Authentication</label>
+      </div>
+      <div class="flex items-center p-3 bg-blue-50 rounded-md hover:bg-blue-100 transition duration-200 ease-in-out">
+        <input type="checkbox" id="includeAnalytics" formControlName="includeAnalytics"
+          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+        <label for="includeAnalytics" class="ml-2 text-sm font-medium text-gray-700">Include Analytics Integration</label>
+      </div>
+    </div>
+
+    <div>
+      <label for="customCssSnippets" class="block text-sm font-medium text-gray-700 mb-1">Custom CSS Snippets (for generated site)</label>
+      <textarea id="customCssSnippets" formControlName="customCssSnippets" rows="3" placeholder="/* Add custom CSS rules here */"
+        class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 font-mono text-sm"></textarea>
+      @if (generatorForm.get('customCssSnippets')?.invalid && generatorForm.get('customCssSnippets')?.touched) {
+        <p class="text-red-500 text-xs mt-1">Custom CSS is too long.</p>
+      }
+    </div>
+    <div>
+      <label for="customJsSnippets" class="block text-sm font-medium text-gray-700 mb-1">Custom JS Snippets (for generated site)</label>
+      <textarea id="customJsSnippets" formControlName="customJsSnippets" rows="3" placeholder="// Add custom JavaScript code here"
+        class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 font-mono text-sm"></textarea>
+      @if (generatorForm.get('customJsSnippets')?.invalid && generatorForm.get('customJsSnippets')?.touched) {
+        <p class="text-red-500 text-xs mt-1">Custom JS is too long.</p>
+      }
+    </div>
+  </section>
+
+  <div class="flex justify-end gap-4 pt-4">
+    <button type="button" (click)="resetForm()"
+      class="px-6 py-3 bg-gray-200 text-gray-800 rounded-md font-semibold hover:bg-gray-300 transition duration-300 ease-in-out shadow-sm">
+      Reset
+    </button>
+    <button type="submit"
+      class="px-8 py-3 bg-blue-600 text-white rounded-md font-semibold hover:bg-blue-700 transition duration-300 ease-in-out shadow-md hover:shadow-lg">
+      Generate Website
+    </button>
+  </div>
+</form>

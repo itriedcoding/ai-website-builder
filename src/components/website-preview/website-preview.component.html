@@ -1,0 +1,10 @@
+
+<div class="w-full h-[600px] bg-gray-100 rounded-lg overflow-hidden border border-gray-200">
+  @if (sanitizedContentUrl()) {
+    <iframe [src]="sanitizedContentUrl()!" class="w-full h-full border-none"></iframe>
+  } @else {
+    <div class="flex items-center justify-center h-full text-gray-500 text-lg">
+      <p>Waiting for website content...</p>
+    </div>
+  }
+</div>
