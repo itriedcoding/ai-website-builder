@@ -213,6 +213,8 @@ export class HomeComponent {
     systemInstruction += ` Incorporate sophisticated hover animations (e.g., hover:scale-105, hover:shadow-xl, hover:bg-purple-700, hover:text-white, hover:translate-y-[-4px]) and smooth transition classes (e.g., transition duration-300 ease-in-out).`;
     systemInstruction += ` Use the provided primary and accent colors in the Tailwind config and components.`;
     systemInstruction += ` For responsive design, leverage Tailwind's responsive utility classes.`;
+    systemInstruction += ` Crucially, always include clear, actionable instructions for the user on how to set up the project locally, install dependencies, configure the database (with .env.local examples), and run the application on localhost using 'npm run dev' or 'yarn dev'. Also, provide initial guidance for Vercel deployment.`;
+
 
     if (formData.brandTone) {
       systemInstruction += ` The overall brand tone should be "${formData.brandTone}".`;
@@ -301,17 +303,21 @@ export class HomeComponent {
     if (formData.databasePreference) {
       let databaseDetails = '';
       let orm = '';
+      let envVarExample = '';
       if (formData.databasePreference.includes('PostgreSQL')) {
         databaseDetails = 'PostgreSQL';
         orm = 'Prisma';
+        envVarExample = `DATABASE_URL="postgresql://user:password@localhost:5432/mydb"`;
       } else if (formData.databasePreference.includes('MongoDB')) {
         databaseDetails = 'MongoDB';
         orm = 'Mongoose';
+        envVarExample = `MONGODB_URI="mongodb://localhost:27017/mydb"`;
       } else if (formData.databasePreference.includes('SQLite')) {
         databaseDetails = 'SQLite';
         orm = 'Drizzle';
+        envVarExample = `DATABASE_URL="file:./sqlite.db"`; // For local SQLite file
       }
-      initialChatPrompt += ` Integrate a ${databaseDetails} database using ${orm}. Provide Next.js API routes (in the 'pages/api' directory) for basic CRUD (Create, Read, Update, Delete) operations on a relevant data model (e.g., 'items' for an e-commerce store, 'users' for a SaaS, 'posts' for a blog). Include schema definition and example API handler logic for each CRUD operation.`;
+      initialChatPrompt += ` Integrate a ${databaseDetails} database using ${orm}. Provide Next.js API routes (in the 'pages/api' directory) for basic CRUD (Create, Read, Update, Delete) operations on a relevant data model (e.g., 'items' for an e-commerce store, 'users' for a SaaS, 'posts' for a blog). Include schema definition and example API handler logic for each CRUD operation. Provide example .env.local configuration for the database: ${envVarExample}`;
     }
     if (formData.customCssSnippets) {
       initialChatPrompt += ` Include custom CSS snippets in a globals.css or component style: ${formData.customCssSnippets}.`;
@@ -322,6 +328,13 @@ export class HomeComponent {
 
     // Explicitly request Vercel deployment hints
     initialChatPrompt += ` Also, include considerations for Vercel deployment, like necessary environment variables or config.`;
+
+    // Add instructions for local deployment to the prompt
+    if (formData.responseOutputMimeType === 'application/json' && !formData.enableGoogleSearch) {
+      initialChatPrompt += ` When generating the project files in JSON format, make sure to include a 'README.md' file at the root level ('README.md') with comprehensive instructions on how to set up the project, install dependencies (npm install or yarn install), configure environment variables (with examples like .env.local), and run the development server (npm run dev or yarn dev) to view the website on localhost. Also include basic instructions for Vercel deployment.`;
+    } else {
+      initialChatPrompt += ` Ensure the generated Markdown description includes a dedicated "Local Development Setup" section with step-by-step instructions on how to download, install dependencies, configure environment variables (especially for the database), and run the Next.js project on localhost, plus initial Vercel deployment steps.`;
+    }
 
 
     // 3. Construct Gemini Config
@@ -353,11 +366,11 @@ export class HomeComponent {
           properties: {
             filePath: {
               type: Type.STRING,
-              description: 'The path and filename for the generated Next.js code, e.g., "pages/index.tsx", "components/Header.tsx", "api/auth/[...nextauth].ts", "tailwind.config.js".',
+              description: 'The path and filename for the generated Next.js code, e.g., "pages/index.tsx", "components/Header.tsx", "api/auth/[...nextauth].ts", "tailwind.config.js", "README.md".',
             },
             fileContent: {
               type: Type.STRING,
-              description: 'The full content of the file, including imports, JSX, TypeScript, and exports.',
+              description: 'The full content of the file, including imports, JSX, TypeScript, and exports. For README.md, it should be the markdown content with setup instructions.',
             },
           },
           propertyOrdering: ["filePath", "fileContent"],
