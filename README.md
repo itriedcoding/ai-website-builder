@@ -1,4 +1,5 @@
-# Neura AI: Build your next website using AI models. With advanced features, and stuff so you can create your next big business.
+# Neura AI: Next big project
+# Build your next big project using AI.
 
 Neura AI is an innovative Angular 20+ application designed to empower users to generate dynamic Next.js project structures, components, and content ideas using the power of Google Gemini AI. With a rich set of **over 50 advanced features**, an aesthetic dark and vibrant theme, and engaging animations, this tool transforms your project vision into a tangible Next.js codebase blueprint with unparalleled ease, ready for Vercel deployment.
 
