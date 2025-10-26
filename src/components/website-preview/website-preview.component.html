@@ -1,17 +1,16 @@
-
 <div class="w-full h-full flex flex-col">
-  <div class="w-full flex justify-end gap-2 p-2 bg-gray-50 border-b border-gray-200">
+  <div class="w-full flex justify-end gap-2 p-2 bg-blue-50 border-b border-blue-100 rounded-t-xl">
     @if (generatedOutput() && !generatedOutput()?.isJson && generatedOutput()?.htmlContent) {
-      <button (click)="downloadHtml()" class="px-4 py-2 bg-blue-500 text-white rounded-md text-sm hover:bg-blue-600 transition duration-200 ease-in-out">
+      <button (click)="downloadHtml()" class="px-4 py-2 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700 transition duration-200 ease-in-out shadow-sm">
         Download HTML
       </button>
     } @else if (generatedOutput() && generatedOutput()?.isJson && generatedOutput()?.htmlContent) {
-      <button (click)="downloadHtml()" class="px-4 py-2 bg-blue-500 text-white rounded-md text-sm hover:bg-blue-600 transition duration-200 ease-in-out">
+      <button (click)="downloadHtml()" class="px-4 py-2 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700 transition duration-200 ease-in-out shadow-sm">
         Download JSON
       </button>
     }
   </div>
-  <div class="flex-grow w-full h-[calc(100%-48px)] bg-gray-100 rounded-b-lg overflow-hidden border border-gray-200">
+  <div class="flex-grow w-full h-[calc(100%-48px)] bg-gray-100 rounded-b-xl overflow-hidden border border-blue-100">
     @if (sanitizedContentUrl()) {
       <iframe [src]="sanitizedContentUrl()!" class="w-full h-full border-none"></iframe>
     } @else {

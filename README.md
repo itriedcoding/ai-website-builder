@@ -4,7 +4,7 @@
 
 The AI Website Generator is an innovative Angular 20+ application designed to empower users to generate dynamic website structures and content ideas using the power of Google Gemini AI. With a rich set of **over 50 advanced features**, an aesthetic white and blue theme, and engaging animations, this tool transforms your website vision into a tangible blueprint with unparalleled ease.
 
-Define your project's unique requirements through a comprehensive form, and let the AI craft a responsive, modern, and engaging website outline tailored to your specifications.
+Define your project's unique requirements through a comprehensive form, and let the AI craft a responsive, modern, and engaging website outline tailored to your specifications. The application now features a multi-page structure, including a dedicated Home page for the generator, and legal pages for Terms of Service and Privacy Policy, accessible via elegant navigation.
 
 ## ✨ Features
 
@@ -77,6 +77,12 @@ This application leverages cutting-edge AI capabilities to offer a plethora of f
 56. **Multi-language Support:** Select the primary language for the generated website content.
 57. **Download Generated Content:** New buttons to download the generated HTML (or JSON) directly from the preview.
 
+## 📄 Pages
+The application now features the following pages:
+*   **Home:** The main AI Website Generator interface with the form and preview.
+*   **Terms of Service:** A dedicated page outlining the application's terms and conditions.
+*   **Privacy Policy:** A dedicated page explaining how user data is handled.
+
 ## 🚀 Technologies Used
 
 *   **Angular v20+:** The powerful framework for building dynamic web applications.
@@ -85,6 +91,7 @@ This application leverages cutting-edge AI capabilities to offer a plethora of f
 *   **Google Gemini API (`@google/genai`):** Powers the AI content generation logic.
 *   **Signals:** Angular's modern reactivity model for state management.
 *   **Standalone Components:** Modern Angular architecture for improved modularity.
+*   **Angular Router:** For seamless multi-page navigation.
 
 ## ⚙️ Setup and Installation
 
@@ -147,10 +154,11 @@ This will compile and launch the application. Open your browser and navigate to 
 
 ## 💡 Usage
 
-1.  **Configure Your Website:** Use the comprehensive form on the left side to define your website's type, industry, audience, design preferences (colors, fonts, layout, animation intensity), key pages, AI configuration, and advanced features.
-2.  **Input Your Vision:** Provide a clear website idea or description.
-3.  **Click "Generate Website":** The AI will process your inputs and generate a comprehensive website outline and content suggestions, optionally using Google Search or returning JSON.
-4.  **Preview and Refine:** The generated content will appear in the preview pane on the right. You can download the generated HTML or JSON, and review any Google Search sources. Refine your inputs in the form and regenerate to iterate on the design and content.
+1.  **Navigate the App:** Use the header navigation to switch between the Home (AI Generator), Terms of Service, and Privacy Policy pages.
+2.  **Configure Your Website (on Home page):** Use the comprehensive form on the left side to define your website's type, industry, audience, design preferences (colors, fonts, layout, animation intensity), key pages, AI configuration, and advanced features.
+3.  **Input Your Vision:** Provide a clear website idea or description.
+4.  **Click "Generate Website":** The AI will process your inputs and generate a comprehensive website outline and content suggestions, optionally using Google Search or returning JSON.
+5.  **Preview and Refine:** The generated content will appear in the preview pane on the right. You can download the generated HTML or JSON, and review any Google Search sources. Refine your inputs in the form and regenerate to iterate on the design and content.
 
 ## 🤝 Contributing
 
