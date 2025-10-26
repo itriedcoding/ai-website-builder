@@ -1,5 +1,12 @@
-import { ChangeDetectionStrategy, Component, input, signal, WritableSignal, computed, SimpleChanges, OnChanges, effect } from '@angular/core';
-import { CommonModule, DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
+import { ChangeDetectionStrategy, Component, input, signal, WritableSignal, effect } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+
+interface GeneratedWebsiteOutput {
+  htmlContent: string;
+  groundingUrls: { uri: string; title?: string }[];
+  isJson: boolean;
+}
 
 @Component({
   selector: 'app-website-preview',
@@ -10,15 +17,27 @@ import { CommonModule, DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WebsitePreviewComponent {
-  content = input.required<string>(); // Input signal for generated content
+  generatedOutput = input.required<GeneratedWebsiteOutput | null>();
 
   sanitizedContentUrl: WritableSignal<SafeResourceUrl | null> = signal(null);
 
   constructor(private sanitizer: DomSanitizer) {
     effect(() => {
-      const currentContent = this.content();
-      if (currentContent) {
-        // Wrap the generated content in a basic HTML structure with Tailwind CSS CDN
+      const output = this.generatedOutput();
+      if (output && output.htmlContent) {
+        let contentToEmbed = output.htmlContent;
+        let isJson = output.isJson;
+
+        // If JSON, format it for display in a <pre> tag within the iframe
+        if (isJson) {
+          try {
+            const parsedJson = JSON.parse(contentToEmbed);
+            contentToEmbed = `<pre class="whitespace-pre-wrap font-mono text-sm bg-gray-50 p-4 rounded-md overflow-auto">${JSON.stringify(parsedJson, null, 2)}</pre>`;
+          } catch (e: any) {
+            contentToEmbed = `<div class="bg-red-100 text-red-800 p-4 rounded-md">Error parsing JSON: ${e.message || 'Unknown error'}. Raw content: <pre>${contentToEmbed}</pre></div>`;
+          }
+        }
+
         const fullHtml = `
           <!doctype html>
           <html>
@@ -31,6 +50,13 @@ export class WebsitePreviewComponent {
               body { font-family: sans-serif; margin: 0; padding: 1rem; background-color: #f8fafc; color: #334155; }
               section { margin-bottom: 2rem; padding: 1.5rem; border-radius: 0.5rem; background-color: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
               h1, h2, h3 { color: #1e3a8a; }
+
+              /* Dark Mode - Basic example for AI consideration */
+              @media (prefers-color-scheme: dark) {
+                body { background-color: #1a202c; color: #e2e8f0; }
+                section { background-color: #2d3748; box-shadow: none; }
+                h1, h2, h3 { color: #90cdf4; }
+              }
 
               /* Hover effects for interactive elements */
               .btn, button {
@@ -74,7 +100,7 @@ export class WebsitePreviewComponent {
             </style>
           </head>
           <body>
-            ${currentContent}
+            ${contentToEmbed}
             <script>
               // Basic IntersectionObserver for scroll animations inside the iframe
               document.addEventListener('DOMContentLoaded', () => {
@@ -94,14 +120,39 @@ export class WebsitePreviewComponent {
           </body>
           </html>
         `;
-        // Create a Blob containing the HTML content
         const blob = new Blob([fullHtml], { type: 'text/html' });
-        // Create a URL for the Blob
         const url = URL.createObjectURL(blob);
         this.sanitizedContentUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(url));
       } else {
         this.sanitizedContentUrl.set(null);
       }
     });
+  }
+
+  downloadHtml() {
+    const output = this.generatedOutput();
+    if (output && output.htmlContent) {
+      const filename = output.isJson ? 'generated_content.json' : 'generated_website.html';
+      const type = output.isJson ? 'application/json' : 'text/html';
+      let content = output.htmlContent;
+      if (output.isJson) {
+        try {
+          content = JSON.stringify(JSON.parse(output.htmlContent), null, 2); // Prettify JSON
+        } catch (e) {
+          console.error("Error pretty-printing JSON for download:", e);
+          // Fallback to raw content if parsing fails
+        }
+      }
+
+      const blob = new Blob([content], { type: type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
   }
 }

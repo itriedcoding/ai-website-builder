@@ -2,7 +2,7 @@
 <form [formGroup]="generatorForm" (ngSubmit)="onSubmit()" class="bg-white p-8 rounded-xl shadow-lg border border-blue-100 space-y-8">
   <div class="text-center mb-6">
     <h2 class="text-3xl font-bold text-blue-700">Configure Your Website</h2>
-    <p class="text-gray-600 mt-2">Choose from 30+ features to guide the AI in generating your perfect site.</p>
+    <p class="text-gray-600 mt-2">Choose from 50+ features to guide the AI in generating your perfect site.</p>
   </div>
 
   <!-- Basic Information Section -->
@@ -134,6 +134,22 @@
 
     <div>
       <div class="flex items-center mb-2">
+        <input type="checkbox" id="generateContentStrategy" formControlName="generateContentStrategy"
+          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+        <label for="generateContentStrategy" class="ml-2 text-sm font-medium text-gray-700">Generate Content Strategy</label>
+      </div>
+    </div>
+
+    <div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="includeStructuredData" formControlName="includeStructuredData"
+          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+        <label for="includeStructuredData" class="ml-2 text-sm font-medium text-gray-700">Include Structured Data (Schema.org)</label>
+      </div>
+    </div>
+
+    <div>
+      <div class="flex items-center mb-2">
         <input type="checkbox" id="includeSEOKeywords" formControlName="includeSEOKeywords"
           class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
         <label for="includeSEOKeywords" class="ml-2 text-sm font-medium text-gray-700">Include SEO Keywords</label>
@@ -221,9 +237,171 @@
     </div>
   </section>
 
-  <!-- Advanced Features Section -->
+  <!-- Advanced UI/UX & Content Section -->
   <section class="space-y-6" appScrollAnimation>
-    <h3 class="text-2xl font-semibold text-blue-600 border-b-2 border-blue-200 pb-2 mb-4">4. Advanced Features</h3>
+    <h3 class="text-2xl font-semibold text-blue-600 border-b-2 border-blue-200 pb-2 mb-4">4. Advanced UI/UX & Content</h3>
+    <div>
+      <label for="animationIntensity" class="block text-sm font-medium text-gray-700 mb-1">Animation Intensity</label>
+      <select id="animationIntensity" formControlName="animationIntensity"
+        class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400">
+        @for (intensity of animationIntensities(); track intensity) {
+          <option [value]="intensity">{{ intensity }}</option>
+        }
+      </select>
+    </div>
+
+    <div>
+      <label for="imageGenerationPrompt" class="block text-sm font-medium text-gray-700 mb-1">Image Generation Prompt</label>
+      <textarea id="imageGenerationPrompt" formControlName="imageGenerationPrompt" rows="2" placeholder="e.g., A minimalist office space with natural light."
+        class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400"></textarea>
+      @if (generatorForm.get('imageGenerationPrompt')?.invalid && generatorForm.get('imageGenerationPrompt')?.touched) {
+        <p class="text-red-500 text-xs mt-1">Image prompt is too long.</p>
+      }
+    </div>
+
+    <div>
+      <label for="videoGenerationPrompt" class="block text-sm font-medium text-gray-700 mb-1">Video Generation Prompt</label>
+      <textarea id="videoGenerationPrompt" formControlName="videoGenerationPrompt" rows="2" placeholder="e.g., A drone shot of a bustling city at sunset."
+        class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400"></textarea>
+      @if (generatorForm.get('videoGenerationPrompt')?.invalid && generatorForm.get('videoGenerationPrompt')?.touched) {
+        <p class="text-red-500 text-xs mt-1">Video prompt is too long.</p>
+      }
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="flex items-center p-3 bg-blue-50 rounded-md hover:bg-blue-100 transition duration-200 ease-in-out">
+        <input type="checkbox" id="includePreloader" formControlName="includePreloader"
+          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+        <label for="includePreloader" class="ml-2 text-sm font-medium text-gray-700">Include Preloader</label>
+      </div>
+      <div class="flex items-center p-3 bg-blue-50 rounded-md hover:bg-blue-100 transition duration-200 ease-in-out">
+        <input type="checkbox" id="includeCookieConsent" formControlName="includeCookieConsent"
+          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+        <label for="includeCookieConsent" class="ml-2 text-sm font-medium text-gray-700">Include Cookie Consent</label>
+      </div>
+    </div>
+
+    <div>
+      <label for="languagePreference" class="block text-sm font-medium text-gray-700 mb-1">Language Preference</label>
+      <select id="languagePreference" formControlName="languagePreference"
+        class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400">
+        @for (lang of languagePreferences(); track lang) {
+          <option [value]="lang">{{ lang }}</option>
+        }
+      </select>
+    </div>
+  </section>
+
+  <!-- AI Configuration Section -->
+  <section class="space-y-6" appScrollAnimation>
+    <h3 class="text-2xl font-semibold text-blue-600 border-b-2 border-blue-200 pb-2 mb-4">5. AI Configuration</h3>
+
+    <div>
+      <label for="temperature" class="block text-sm font-medium text-gray-700 mb-1">Temperature (Creativity) <span class="text-blue-600 font-bold">({{ generatorForm.get('temperature')?.value }})</span></label>
+      <input type="range" id="temperature" formControlName="temperature" min="0.0" max="1.0" step="0.05"
+        class="w-full h-2 bg-blue-100 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300 ease-in-out hover:bg-blue-200">
+      @if (generatorForm.get('temperature')?.invalid && generatorForm.get('temperature')?.touched) {
+        <p class="text-red-500 text-xs mt-1">Temperature must be between 0.0 and 1.0.</p>
+      }
+    </div>
+
+    <div>
+      <label for="topP" class="block text-sm font-medium text-gray-700 mb-1">Top P (Diversity) <span class="text-blue-600 font-bold">({{ generatorForm.get('topP')?.value }})</span></label>
+      <input type="range" id="topP" formControlName="topP" min="0.0" max="1.0" step="0.05"
+        class="w-full h-2 bg-blue-100 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300 ease-in-out hover:bg-blue-200">
+      @if (generatorForm.get('topP')?.invalid && generatorForm.get('topP')?.touched) {
+        <p class="text-red-500 text-xs mt-1">Top P must be between 0.0 and 1.0.</p>
+      }
+    </div>
+
+    <div>
+      <label for="topK" class="block text-sm font-medium text-gray-700 mb-1">Top K (Focus) <span class="text-blue-600 font-bold">({{ generatorForm.get('topK')?.value }})</span></label>
+      <input type="range" id="topK" formControlName="topK" min="1" max="100" step="1"
+        class="w-full h-2 bg-blue-100 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300 ease-in-out hover:bg-blue-200">
+      @if (generatorForm.get('topK')?.invalid && generatorForm.get('topK')?.touched) {
+        <p class="text-red-500 text-xs mt-1">Top K must be between 1 and 100.</p>
+      }
+    </div>
+
+    <div>
+      <label for="maxOutputTokens" class="block text-sm font-medium text-gray-700 mb-1">Max Output Tokens</label>
+      <input type="number" id="maxOutputTokens" formControlName="maxOutputTokens" min="1" max="4096"
+        class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400">
+      @if (generatorForm.get('maxOutputTokens')?.invalid && generatorForm.get('maxOutputTokens')?.touched) {
+        <p class="text-red-500 text-xs mt-1">Between 1 and 4096 tokens.</p>
+      }
+    </div>
+
+    <div>
+      <label for="thinkingBudget" class="block text-sm font-medium text-gray-700 mb-1">Thinking Budget (tokens for processing, Gemini-Flash only)</label>
+      <input type="number" id="thinkingBudget" formControlName="thinkingBudget" min="0" max="1000"
+        class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400">
+      @if (generatorForm.get('thinkingBudget')?.invalid && generatorForm.get('thinkingBudget')?.touched) {
+        <p class="text-red-500 text-xs mt-1">Between 0 and 1000 tokens.</p>
+      }
+    </div>
+
+    <div>
+      <label for="systemInstruction" class="block text-sm font-medium text-gray-700 mb-1">System Instruction (e.g., "You are a friendly assistant")</label>
+      <textarea id="systemInstruction" formControlName="systemInstruction" rows="2"
+        class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400"></textarea>
+      @if (generatorForm.get('systemInstruction')?.invalid && generatorForm.get('systemInstruction')?.touched) {
+        <p class="text-red-500 text-xs mt-1">System instruction is too long.</p>
+      }
+    </div>
+
+    <div class="flex items-center p-3 bg-blue-50 rounded-md hover:bg-blue-100 transition duration-200 ease-in-out">
+      <input type="checkbox" id="enableGoogleSearch" formControlName="enableGoogleSearch"
+        class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+      <label for="enableGoogleSearch" class="ml-2 text-sm font-medium text-gray-700">Enable Google Search Grounding</label>
+    </div>
+
+    <div>
+      <label for="responseOutputMimeType" class="block text-sm font-medium text-gray-700 mb-1">Response Output Format</label>
+      <select id="responseOutputMimeType" formControlName="responseOutputMimeType"
+        class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400">
+        <option value="text/plain">Text</option>
+        <option value="application/json">JSON</option>
+      </select>
+    </div>
+
+    @if (showJsonSchemaDescription()) {
+      <div>
+        <label for="jsonSchemaDescription" class="block text-sm font-medium text-gray-700 mb-1">Desired JSON Structure Description (e.g., "An array of product objects with name and price")</label>
+        <textarea id="jsonSchemaDescription" formControlName="jsonSchemaDescription" rows="3"
+          class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 font-mono text-sm"></textarea>
+        @if (generatorForm.get('jsonSchemaDescription')?.invalid && generatorForm.get('jsonSchemaDescription')?.touched) {
+          <p class="text-red-500 text-xs mt-1">JSON structure description is required for JSON output.</p>
+        }
+      </div>
+    }
+  </section>
+
+  <!-- Third-Party Integrations Section -->
+  <section class="space-y-6" appScrollAnimation>
+    <h3 class="text-2xl font-semibold text-blue-600 border-b-2 border-blue-200 pb-2 mb-4">6. Third-Party Integrations (Suggestions)</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="flex items-center p-3 bg-blue-50 rounded-md hover:bg-blue-100 transition duration-200 ease-in-out">
+        <input type="checkbox" id="enablePaymentGatewaySuggestions" formControlName="enablePaymentGatewaySuggestions"
+          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+        <label for="enablePaymentGatewaySuggestions" class="ml-2 text-sm font-medium text-gray-700">Payment Gateway Suggestions</label>
+      </div>
+      <div class="flex items-center p-3 bg-blue-50 rounded-md hover:bg-blue-100 transition duration-200 ease-in-out">
+        <input type="checkbox" id="enableCrmIntegrationSuggestions" formControlName="enableCrmIntegrationSuggestions"
+          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+        <label for="enableCrmIntegrationSuggestions" class="ml-2 text-sm font-medium text-gray-700">CRM Integration Suggestions</label>
+      </div>
+      <div class="flex items-center p-3 bg-blue-50 rounded-md hover:bg-blue-100 transition duration-200 ease-in-out">
+        <input type="checkbox" id="enableEmailMarketingSuggestions" formControlName="enableEmailMarketingSuggestions"
+          class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+        <label for="enableEmailMarketingSuggestions" class="ml-2 text-sm font-medium text-gray-700">Email Marketing Suggestions</label>
+      </div>
+    </div>
+  </section>
+
+  <!-- Advanced Features Section (Renamed from 4 to 7 to accommodate new sections) -->
+  <section class="space-y-6" appScrollAnimation>
+    <h3 class="text-2xl font-semibold text-blue-600 border-b-2 border-blue-200 pb-2 mb-4">7. Other Advanced Features</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <div class="flex items-center p-3 bg-blue-50 rounded-md hover:bg-blue-100 transition duration-200 ease-in-out">
         <input type="checkbox" id="responsiveDesign" formControlName="responsiveDesign" disabled
