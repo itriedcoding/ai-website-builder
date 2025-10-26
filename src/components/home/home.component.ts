@@ -252,6 +252,7 @@ export class HomeComponent {
       // When Google Search is enabled, responseMimeType and responseSchema are not allowed.
       geminiConfig.responseMimeType = undefined;
       geminiConfig.responseSchema = undefined; // Ensure no schema is sent
+      geminiConfig.systemInstruction = undefined; // Ensure system instruction is also undefined when using tools with generateContent or chat.create
     } else if (formData.responseOutputMimeType === 'application/json' && formData.jsonSchemaDescription) {
       // If JSON output is requested without Google Search, instruct AI in prompt
       initialChatPrompt += ` The output must be valid JSON matching this described structure: ${formData.jsonSchemaDescription}.`;

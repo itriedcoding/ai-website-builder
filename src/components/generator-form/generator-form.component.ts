@@ -16,10 +16,14 @@ function minMaxValidator(min: number, max: number): ValidatorFn {
 
 // Custom validator for JSON schema description based on mime type
 function jsonSchemaValidator(control: AbstractControl): { [key: string]: any } | null {
-  const responseOutputMimeType = control.parent?.get('responseOutputMimeType')?.value;
+  // Use get('responseOutputMimeType') directly on the parent group
+  const responseOutputMimeTypeControl = control.parent?.get('responseOutputMimeType');
+  const responseOutputMimeType = responseOutputMimeTypeControl?.value;
   const jsonSchemaDescription = control.value;
 
-  if (responseOutputMimeType === 'application/json' && !jsonSchemaDescription?.trim()) {
+  // Check if responseOutputMimeType is 'application/json' AND it's not disabled (i.e., Google Search is not enabled)
+  // AND the jsonSchemaDescription is empty or just whitespace
+  if (responseOutputMimeType === 'application/json' && !responseOutputMimeTypeControl?.disabled && !jsonSchemaDescription?.trim()) {
     return { 'jsonSchemaRequired': true };
   }
   return null;
@@ -129,6 +133,7 @@ export class GeneratorFormComponent {
         responseOutputMimeTypeControl?.setValue('text/plain'); // Force to text/plain if Google Search is on
         responseOutputMimeTypeControl?.disable();
         jsonSchemaDescriptionControl?.disable();
+        jsonSchemaDescriptionControl?.setValue(''); // Clear value when disabled
       } else {
         responseOutputMimeTypeControl?.enable();
         // Only enable jsonSchemaDescription if responseOutputMimeType is 'application/json'
@@ -226,7 +231,7 @@ export class GeneratorFormComponent {
       topP: 0.95,
       topK: 64,
       maxOutputTokens: 2048,
-      thinkingBudget: 500,
+      thinkingBudget: 500, // Correctly set thinkingBudget on reset
       systemInstruction: '',
       enableGoogleSearch: false,
       responseOutputMimeType: 'text/plain',

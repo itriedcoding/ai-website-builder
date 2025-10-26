@@ -25,12 +25,11 @@ export class GeminiService {
     try {
       const adjustedConfig = { ...params.config };
       // If google search is enabled, responseMimeType and responseSchema are not allowed.
-      // Also systemInstruction is typically handled by chat.create, not generateContent with tools.
+      // Also systemInstruction is not allowed directly with generateContent when tools are present.
       if (params.tools?.some(tool => 'googleSearch' in tool)) {
         adjustedConfig.responseMimeType = undefined;
         adjustedConfig.responseSchema = undefined;
-        // systemInstruction is also not allowed with tools for generateContent directly
-        adjustedConfig.systemInstruction = undefined;
+        adjustedConfig.systemInstruction = undefined; // Explicitly set to undefined
       }
 
       const response: GenerateContentResponse = await this.ai.models.generateContent({
