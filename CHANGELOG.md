@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 1.2.0 - 2024-07-30
+## Version 1.2.0 - 2025-10-26
 
 ### ✨ New Features
 
