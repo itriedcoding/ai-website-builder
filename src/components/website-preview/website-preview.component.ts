@@ -6,6 +6,7 @@ interface GeneratedWebsiteOutput {
   htmlContent: string;
   groundingUrls: { uri: string; title?: string }[];
   isJson: boolean;
+  isStreaming?: boolean; // New property to indicate if content is actively streaming
 }
 
 @Component({

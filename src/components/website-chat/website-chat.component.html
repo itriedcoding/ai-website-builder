@@ -1,0 +1,62 @@
+<div class="flex flex-col h-[400px] bg-blue-50/20 rounded-xl border border-blue-100 shadow-inner">
+  <div class="p-4 border-b border-blue-100 flex items-center justify-between">
+    <h3 class="text-xl font-semibold text-blue-700">Refine with AI Chat</h3>
+    @if (isLoading()) {
+      <div class="flex items-center text-blue-600 text-sm">
+        <div class="animate-spin rounded-full h-4 w-4 border-2 border-blue-400 border-t-transparent mr-2"></div>
+        Generating response...
+      </div>
+    }
+  </div>
+
+  <!-- Chat Messages -->
+  <div #chatMessagesContainer class="flex-grow overflow-y-auto p-4 space-y-4">
+    @if (isDisabled()) {
+      <div class="text-center text-gray-500 p-4 border border-dashed border-blue-200 rounded-lg">
+        <p class="font-medium">Generate an initial website first to start chatting!</p>
+      </div>
+    } @else if (chatHistory().length === 0) {
+      <div class="text-center text-gray-500 p-4">
+        <p class="text-sm">Your initial website has been generated. Now, tell the AI how you'd like to refine it!</p>
+        <p class="text-xs mt-1">e.g., "Make the hero section more vibrant", "Change the primary font to Serif", "Add more details to the 'About' section."</p>
+      </div>
+    }
+    @for (message of chatHistory(); track $index) {
+      <div [class]="message.role === 'user' ? 'flex justify-end' : 'flex justify-start'">
+        <div [class]="message.role === 'user' ? 'bg-blue-600 text-white rounded-lg p-3 max-w-[75%] shadow-md' : 'bg-white text-gray-800 rounded-lg p-3 max-w-[75%] shadow-md border border-blue-100'">
+          <p class="font-semibold text-sm mb-1">{{ message.role === 'user' ? 'You' : 'AI' }}</p>
+          <div [class]="message.role === 'model' ? 'whitespace-pre-wrap break-words font-mono text-sm' : 'whitespace-pre-wrap break-words text-sm'">
+            {{ message.text }}
+          </div>
+        </div>
+      </div>
+    }
+    @if (errorMessage()) {
+      <div class="flex justify-center">
+        <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg max-w-[75%] text-sm">
+          <p class="font-semibold mb-1">Error:</p>
+          <p>{{ errorMessage() }}</p>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Chat Input -->
+  <div class="p-4 border-t border-blue-100 flex gap-2">
+    <input
+      [formControl]="chatInput"
+      (keyup.enter)="sendMessage()"
+      type="text"
+      placeholder="Type your message to refine the website..."
+      class="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out hover:border-blue-400 shadow-sm"
+      [disabled]="isLoading() || isDisabled()"
+    >
+    <button
+      (click)="sendMessage()"
+      class="px-5 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition duration-300 ease-in-out shadow-md"
+      [disabled]="chatInput.invalid || isLoading() || isDisabled()"
+    >
+      Send
+    </button>
+  </div>
+</div>
